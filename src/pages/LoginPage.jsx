@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 // We import our new custom hook!
-import { useAuth } from './AuthContext.jsx';
+import { useAuth } from '../context/AuthContext.jsx';
 
 /**
  * Auth View Component
- * The "Login" screen
+ * The "LoginPage" screen
  */
-export default function Login() {
+export default function LoginPage() {
     const [name, setName] = useState('');
     const [isLoggingIn, setIsLoggingIn] = useState(false);
 
@@ -27,8 +27,8 @@ export default function Login() {
     return (
         <div className="text-center space-y-6 p-6 fade-in">
             <div className="space-y-2">
-                <h2 className="text-3xl font-bold">Join the Challenge</h2>
-                <p className="text-slate-400">Answer the daily question, complete your streak, and see how others voted.</p>
+                <h2 className="text-3xl font-bold">Answer the question</h2>
+                <p className="text-slate-400">Answer the daily question, stay on your streak, and see how others voted.</p>
             </div>
 
             <form onSubmit={handleSubmit} className="bg-slate-800/50 p-6 rounded-2xl border border-white/5 space-y-4">
@@ -48,7 +48,6 @@ export default function Login() {
                     {isLoggingIn ? 'Joining...' : 'Start Playing'}
                 </button>
             </form>
-            <p className="text-xs text-slate-500">This demo uses anonymous auth linked to this name.</p>
         </div>
     );
 }
