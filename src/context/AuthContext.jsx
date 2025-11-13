@@ -11,7 +11,7 @@ import {
     serverTimestamp
 } from 'firebase/firestore';
 // We import the auth and db instances from our new firebase.js file
-import { auth, db, appId } from './firebase.js';
+import { auth, db, ARTIFACT_ID } from '../hooks/firebaseConfig.js';
 
 // 1. Create the Context
 const AuthContext = createContext();
@@ -40,7 +40,7 @@ export function AuthProvider({ children }) {
         return unsubscribe;
     }, []);
 
-    // Login function
+    // LoginPage function
     const login = async (name) => {
         if (!auth || !db) return;
 
@@ -49,7 +49,7 @@ export function AuthProvider({ children }) {
             const user = userCredential.user;
 
             // Ensure the user doc exists in Firestore
-            const userRef = doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid);
+            const userRef = doc(db, 'artifacts', ARTIFACT_ID, 'public', 'data', 'users', user.uid);
             const userSnap = await getDoc(userRef);
 
             if (!userSnap.exists()) {
@@ -62,7 +62,7 @@ export function AuthProvider({ children }) {
             }
             // onAuthStateChanged will handle setting the currentUser state
         } catch (err) {
-            console.error("Login failed:", err);
+            console.error("LoginPage failed:", err);
         }
     };
 
@@ -92,6 +92,7 @@ export function AuthProvider({ children }) {
 
 // 3. Create a custom hook to use the context
 // This makes it easy for other components to get the auth state
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
     return useContext(AuthContext);
 }
