@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // We import our new custom hook!
-import { useAuth } from '../context/AuthContext.jsx';
+import { useAuth } from '../context/AuthContext';
 
 /**
  * Auth View Component

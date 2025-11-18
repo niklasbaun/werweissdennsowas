@@ -1,11 +1,13 @@
 import './styles/App.css'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import QuestionsPage from "./pages/QuestionsPage.jsx";
 import LeaderboardPage from "./pages/LeaderboardPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
+import {AuthProvider} from "./context/AuthContext.jsx";
 
 function App() {
   return (
-    <DataProvider>
+    <AuthProvider>
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<LoginPage />} />
@@ -14,7 +16,7 @@ function App() {
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </BrowserRouter>
-    </DataProvider>
+    </AuthProvider>
   )
 }
 
