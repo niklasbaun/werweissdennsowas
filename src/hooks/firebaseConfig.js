@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
 // --- Configuration ---
 // These globals are provided by the environment.
@@ -16,4 +17,6 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+export const db = getFirestore(app);
+const ARTIFACT_ID = typeof __app_id !== 'undefined' ? __app_id : 'default-app';
 export default app;
