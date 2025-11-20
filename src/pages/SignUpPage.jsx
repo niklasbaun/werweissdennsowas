@@ -1,31 +1,40 @@
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { auth } from '../hooks/firebaseConfig.js';
+import { doc, setDoc } from 'firebase/firestore'; // FIXED: Import Firestore functions
+import { useNavigate } from 'react-router-dom'; // FIXED: Import hook
+import { auth, db, ARTIFACT_ID } from '../hooks/firebaseConfig.js'; // FIXED: Import db and ID
 
-const SignupPage = ({ onNavigate }) => {
+const SignupPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const onSignup = async (e) => {
         e.preventDefault();
         setError('');
-        if (!auth) {
-            setError("Firebase not initialized");
-            return;
-        }
+        if (!auth) return;
 
         try {
+            // 1. Create Auth User
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
-            // Optional: Update their display name
+            // 2. Update Auth Profile
             if (name) {
                 await updateProfile(user, { displayName: name });
             }
 
-            onNavigate('/QuestionsPage');
+            // 3. FIXED: Create User Document in Firestore (Required for Leaderboard/Score)
+            await setDoc(doc(db, 'artifacts', ARTIFACT_ID, 'public', 'data', 'users', user.uid), {
+                displayName: name || user.email.split('@')[0],
+                email: user.email,
+                score: 0,
+                createdAt: new Date().toISOString()
+            });
+
+            navigate('/question'); // FIXED: Navigate to correct route
         } catch (err) {
             setError(err.message);
         }
@@ -35,7 +44,8 @@ const SignupPage = ({ onNavigate }) => {
         <div className="w-full max-w-sm bg-slate-800 p-8 rounded-2xl border border-slate-700 shadow-2xl">
             <h2 className="text-2xl font-bold text-white mb-6 text-center">Create Account</h2>
 
-            <form className="space-y-4">
+            {/* 1. Move onSignup to onSubmit here */}
+            <form className="space-y-4" onSubmit={onSignup}>
                 <div>
                     <label className="block text-slate-400 text-sm mb-1">Display Name</label>
                     <input
@@ -67,8 +77,9 @@ const SignupPage = ({ onNavigate }) => {
 
                 {error && <p className="text-red-400 text-xs">{error}</p>}
 
+                {/* 2. Change type to submit and remove onClick */}
                 <button
-                    onClick={onSignup}
+                    type="submit"
                     className="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-2 rounded-lg transition-all active:scale-95"
                 >
                     Sign Up
@@ -78,7 +89,8 @@ const SignupPage = ({ onNavigate }) => {
             <p className="text-sm text-slate-400 text-center mt-6">
                 Already have an account? {' '}
                 <button
-                    onClick={() => onNavigate('/LoginPage')}
+                    type="button"
+                    onClick={() => navigate('/')}
                     className="text-blue-400 hover:text-blue-300 font-semibold hover:underline"
                 >
                     Login

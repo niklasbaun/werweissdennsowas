@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom'; // FIXED: Import hook
 import { auth } from '../hooks/firebaseConfig.js';
 
-const LoginPage = ({ onNavigate }) => {
+const LoginPage = () => { // FIXED: Removed onNavigate prop
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate(); // FIXED: Init hook
 
     const onLogin = async (e) => {
         e.preventDefault();
@@ -17,7 +19,7 @@ const LoginPage = ({ onNavigate }) => {
 
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            onNavigate('/QuestionsPage');
+            navigate('/question'); // FIXED: Correct route path
         } catch (err) {
             setError(err.message);
             console.error(err.code, err.message);
@@ -64,7 +66,7 @@ const LoginPage = ({ onNavigate }) => {
             <p className="text-sm text-slate-400 text-center mt-6">
                 No account yet? {' '}
                 <button
-                    onClick={() => onNavigate('/SignUpPage')}
+                    onClick={() => navigate('/signup')}
                     className="text-blue-400 hover:text-blue-300 font-semibold hover:underline"
                 >
                     Sign up

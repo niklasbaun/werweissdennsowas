@@ -3,8 +3,6 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 // --- Configuration ---
-// These globals are provided by the environment.
-
 const firebaseConfig = {
     apiKey: "AIzaSyB5PRG014hVmefXPV0hP5uSC9OouzGXA1Y",
     authDomain: "werweiss-d8c5b.firebaseapp.com",
@@ -18,5 +16,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
-const ARTIFACT_ID = typeof __app_id !== 'undefined' ? __app_id : 'default-app';
+
+// FIXED: Added 'export' here
+export const ARTIFACT_ID = typeof __app_id !== 'undefined' ? __app_id : 'default-app';
+
 export default app;
