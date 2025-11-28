@@ -86,9 +86,9 @@ export default function QuestionsPage() {
 
     if (!question) return (
         <div className="text-center text-slate-400 mt-10 p-6 bg-slate-800 rounded-xl">
-            <h2 className="text-xl font-bold text-white">No Question Today</h2>
-            <p>Come back tomorrow!</p>
-            <button onClick={() => window.location.reload()} className="mt-4 text-sm text-blue-400 hover:underline">Try Refreshing (or Seed Data)</button>
+            <h2 className="text-xl font-bold text-white">Heute keine Frage</h2>
+            <p>Versuche es morgen nochmal!</p>
+            <button onClick={() => window.location.reload()} className="mt-4 text-sm text-blue-400 hover:underline">Neu laden</button>
         </div>
     );
 
@@ -117,7 +117,7 @@ export default function QuestionsPage() {
 
                 {/* Stats */}
                 <div className="space-y-4">
-                    <h3 className="text-sm font-bold text-slate-500 uppercase">Community Votes</h3>
+                    <h3 className="text-sm font-bold text-slate-500 uppercase">Abstimmungen</h3>
                     {Object.entries(question.options).map(([key, text]) => {
                         const count = stats?.counts[key] || 0;
                         const percent = stats?.total ? Math.round((count / stats.total) * 100) : 0;
@@ -140,7 +140,7 @@ export default function QuestionsPage() {
                     })}
                 </div>
                 <div className="mt-6 p-4 bg-blue-900/20 rounded-xl border border-blue-500/20 text-sm text-blue-200">
-                    <strong>Explanation:</strong> {question.explanation}
+                    <strong>Erklärung:</strong> {question.explanation}
                 </div>
             </div>
         );
@@ -151,7 +151,7 @@ export default function QuestionsPage() {
         <div className="max-w-md mx-auto w-full p-6 fade-in">
 
             <div className="mb-6">
-                <span className="text-xs font-bold text-blue-400 uppercase tracking-wider">Today's Question</span>
+                <span className="text-xs font-bold text-blue-400 uppercase tracking-wider">Heutige Frage</span>
                 <h1 className="text-2xl font-bold text-white mt-2">{question.questionText}</h1>
             </div>
 

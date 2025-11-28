@@ -42,12 +42,12 @@ const SignupPage = () => {
 
     return (
         <div className="w-full max-w-sm bg-slate-800 p-8 rounded-2xl border border-slate-700 shadow-2xl">
-            <h2 className="text-2xl font-bold text-white mb-6 text-center">Create Account</h2>
+            <h2 className="text-2xl font-bold text-white mb-6 text-center">Accout erstellen</h2>
 
             {/* 1. Move onSignup to onSubmit here */}
             <form className="space-y-4" onSubmit={onSignup}>
                 <div>
-                    <label className="block text-slate-400 text-sm mb-1">Display Name</label>
+                    <label className="block text-slate-400 text-sm mb-1">Anzeige Name</label>
                     <input
                         type="text"
                         className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-blue-500 focus:outline-none"
@@ -66,7 +66,7 @@ const SignupPage = () => {
                 </div>
 
                 <div>
-                    <label className="block text-slate-400 text-sm mb-1">Password</label>
+                    <label className="block text-slate-400 text-sm mb-1">Passwort</label>
                     <input
                         type="password"
                         required
@@ -87,7 +87,7 @@ const SignupPage = () => {
             </form>
 
             <p className="text-sm text-slate-400 text-center mt-6">
-                Already have an account? {' '}
+                Du hast schon einen Account? {' '}
                 <button
                     type="button"
                     onClick={() => navigate('/')}

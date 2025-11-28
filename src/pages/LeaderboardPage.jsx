@@ -43,18 +43,18 @@ export default function LeaderboardPage() {
                         onClick={() => navigate('/question')}
                         className="mb-6 text-sm text-slate-400 hover:text-white flex items-center gap-2 transition-colors"
                     >
-                        &larr; Back to Question
+                        &larr; zurück zu den Fragen
                     </button>
 
                     <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                        Top Players
+                        Top Spieler
                     </h2>
 
                     <table className="w-full text-left">
                         <thead className="bg-slate-900/50 text-xs text-slate-400 uppercase font-semibold">
                         <tr>
-                            <th className="px-6 py-4">Rank</th>
-                            <th className="px-6 py-4">Player</th>
+                            <th className="px-6 py-4">Rang</th>
+                            <th className="px-6 py-4">Spieler</th>
                             <th className="px-6 py-4 text-right">Score</th>
                         </tr>
                         </thead>
@@ -77,7 +77,7 @@ export default function LeaderboardPage() {
                         ))}
                         {users.length === 0 && (
                             <tr>
-                                <td colSpan="3" className="px-6 py-8 text-center text-slate-500">No players yet</td>
+                                <td colSpan="3" className="px-6 py-8 text-center text-slate-500">Noch keine Spieler</td>
                             </tr>
                         )}
                         </tbody>

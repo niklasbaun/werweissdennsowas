@@ -7,7 +7,7 @@ const LoginPage = () => { // FIXED: Removed onNavigate prop
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const navigate = useNavigate(); // FIXED: Init hook
+    const navigate = useNavigate();
 
     const onLogin = async (e) => {
         e.preventDefault();
@@ -19,7 +19,7 @@ const LoginPage = () => { // FIXED: Removed onNavigate prop
 
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            navigate('/question'); // FIXED: Correct route path
+            navigate('/question');
         } catch (err) {
             setError(err.message);
             console.error(err.code, err.message);
@@ -28,11 +28,11 @@ const LoginPage = () => { // FIXED: Removed onNavigate prop
 
     return (
         <div className="w-full max-w-sm bg-slate-800 p-8 rounded-2xl border border-slate-700 shadow-2xl">
-            <h2 className="text-2xl font-bold text-white mb-6 text-center">FocusApp Login</h2>
+            <h2 className="text-2xl font-bold text-white mb-6 text-center">Wer weiß denn so was?</h2>
 
             <form className="space-y-4">
                 <div>
-                    <label className="block text-slate-400 text-sm mb-1">Email address</label>
+                    <label className="block text-slate-400 text-sm mb-1">Email addresse</label>
                     <input
                         type="email"
                         required
@@ -43,7 +43,7 @@ const LoginPage = () => { // FIXED: Removed onNavigate prop
                 </div>
 
                 <div>
-                    <label className="block text-slate-400 text-sm mb-1">Password</label>
+                    <label className="block text-slate-400 text-sm mb-1">Passwort</label>
                     <input
                         type="password"
                         required
@@ -64,7 +64,7 @@ const LoginPage = () => { // FIXED: Removed onNavigate prop
             </form>
 
             <p className="text-sm text-slate-400 text-center mt-6">
-                No account yet? {' '}
+                Noch keinen Account? {' '}
                 <button
                     onClick={() => navigate('/signup')}
                     className="text-blue-400 hover:text-blue-300 font-semibold hover:underline"
