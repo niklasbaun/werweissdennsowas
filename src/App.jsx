@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import { auth } from "./hooks/firebaseConfig.js";
 import LoginPage from "./pages/LoginPage.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
@@ -32,7 +32,7 @@ const ProtectedRoute = ({ children }) => {
 
 function App() {
     return (
-        <BrowserRouter basename={"/werweissdennsowas"}>
+        <HashRouter>
             <Routes>
                 {/* Public Routes */}
                 <Route path="/" element={<LoginPage />} />
@@ -51,7 +51,7 @@ function App() {
                     </ProtectedRoute>
                 } />
             </Routes>
-        </BrowserRouter>
+        </HashRouter>
     );
 }
 

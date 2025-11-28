@@ -24,7 +24,6 @@ const questionsToAdd = [
                 a: "Earth",
                 b: "Mars",
                 c: "Jupiter",
-                d: "Venus"
             },
             correctAnswer: "b",
             explanation: "Mars is red because of iron oxide (rust) on its surface."
@@ -38,7 +37,6 @@ const questionsToAdd = [
                 a: "London",
                 b: "Berlin",
                 c: "Paris",
-                d: "Madrid"
             },
             correctAnswer: "c",
             explanation: "Paris has been the capital of France since the middle ages."

@@ -48,7 +48,7 @@ export default function QuestionsPage() {
         const answersRef = collection(db, 'artifacts', ARTIFACT_ID, 'public', 'data', 'answers');
         const qStats = query(answersRef, where('questionId', '==', todayID));
         const unsubS = onSnapshot(qStats, (snap) => {
-            const counts = { a: 0, b: 0, c: 0, d: 0 };
+            const counts = { a: 0, b: 0, c: 0 };
             snap.docs.forEach(d => {
                 const val = d.data().selectedOption;
                 if (counts[val] !== undefined) counts[val]++;
@@ -97,6 +97,14 @@ export default function QuestionsPage() {
         const { isCorrect } = myAnswer;
         return (
             <div className="max-w-md mx-auto w-full p-6 fade-in">
+                <div className="flex justify-end mb-4">
+                    <button
+                        onClick={() => navigate('/leaderboard')}
+                        className="text-xs font-bold text-slate-400 hover:text-white uppercase tracking-wider flex items-center gap-1 transition-colors"
+                    >
+                        🏆 Leaderboard &rarr;
+                    </button>
+                </div>
                 {/* Header Result */}
                 <div className={`text-center p-6 rounded-2xl border mb-8 ${isCorrect ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-rose-500/10 border-rose-500/30'}`}>
                     <h2 className={`text-2xl font-bold ${isCorrect ? 'text-emerald-400' : 'text-rose-400'}`}>
@@ -141,14 +149,7 @@ export default function QuestionsPage() {
     // VIEW: Voting (User has NOT voted)
     return (
         <div className="max-w-md mx-auto w-full p-6 fade-in">
-            <div className="flex justify-end mb-4">
-                <button
-                    onClick={() => navigate('/leaderboard')}
-                    className="text-xs font-bold text-slate-400 hover:text-white uppercase tracking-wider flex items-center gap-1 transition-colors"
-                >
-                    🏆 Leaderboard &rarr;
-                </button>
-            </div>
+
             <div className="mb-6">
                 <span className="text-xs font-bold text-blue-400 uppercase tracking-wider">Today's Question</span>
                 <h1 className="text-2xl font-bold text-white mt-2">{question.questionText}</h1>
