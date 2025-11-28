@@ -36,13 +36,21 @@ const SignupPage = () => {
 
             navigate('/question'); // FIXED: Navigate to correct route
         } catch (err) {
-            setError(err.message);
+            console.error("Firebase Fehler:", err); // <--- WICHTIG: Fehler in Konsole ausgeben
+            console.error("Pfad:", `artifacts/${ARTIFACT_ID}/public/data/users/${auth.currentUser?.uid}`);
+
+            // Benutzerfreundliche Fehlermeldung
+            if (err.code === 'permission-denied') {
+                setError('Keine Berechtigung zum Speichern (Datenbank-Regeln prüfen).');
+            } else {
+                setError(err.message);
+            }
         }
     }
 
     return (
         <div className="w-full max-w-sm bg-slate-800 p-8 rounded-2xl border border-slate-700 shadow-2xl">
-            <h2 className="text-2xl font-bold text-white mb-6 text-center">Accout erstellen</h2>
+            <h2 className="text-2xl font-bold text-white mb-6 text-center">Account erstellen</h2>
 
             {/* 1. Move onSignup to onSubmit here */}
             <form className="space-y-4" onSubmit={onSignup}>

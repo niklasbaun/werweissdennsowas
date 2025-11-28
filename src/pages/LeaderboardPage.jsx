@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { collection, query, orderBy, limit, onSnapshot } from 'firebase/firestore';
+import {collection, query, onSnapshot, orderBy, limit} from 'firebase/firestore';
 import { db, ARTIFACT_ID } from '../hooks/firebaseConfig.js';
 
 
@@ -12,18 +12,25 @@ export default function LeaderboardPage() {
     useEffect(() => {
         if (!db) return;
 
-        // Query: Users sorted by score (High to Low)
         const usersRef = collection(db, 'artifacts', ARTIFACT_ID, 'public', 'data', 'users');
         const q = query(usersRef, orderBy('score', 'desc'), limit(10));
 
-        const unsubscribe = onSnapshot(q, (snapshot) => {
-            const userList = snapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data()
-            }));
-            setUsers(userList);
-            setLoading(false);
-        });
+        // FIXED: Added the Error Callback (the 3rd argument)
+        const unsubscribe = onSnapshot(
+            q,
+            (snapshot) => {
+                const userList = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+                setUsers(userList);
+                setLoading(false);
+            },
+            (error) => {
+                // THIS will show you the real problem in the console
+                console.error("🔥 LEADERBOARD ERROR:", error);
+            }
+        );
 
         return () => unsubscribe();
     }, []);
