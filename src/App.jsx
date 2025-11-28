@@ -25,15 +25,14 @@ function useAuth() {
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
     const { currentUser, loading } = useAuth();
-    if (loading) return <div className="text-white p-10">Loading...</div>; // FIXED: Simple loading UI
+    if (loading) return <div className="text-white p-10">Loading...</div>;
     if (!currentUser) return <Navigate to="/" replace />;
     return children;
 };
 
 function App() {
     return (
-        // FIXED: Removed <AuthProvider> wrapper as it was undefined
-        <BrowserRouter>
+        <BrowserRouter basename={"/werweissdennsowas"}>
             <Routes>
                 {/* Public Routes */}
                 <Route path="/" element={<LoginPage />} />
