@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { collection, query, orderBy, limit, onSnapshot } from 'firebase/firestore';
 import { db, ARTIFACT_ID } from '../hooks/firebaseConfig.js';
+
 
 export default function LeaderboardPage() {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!db) return;
@@ -35,6 +38,18 @@ export default function LeaderboardPage() {
                 <div className="text-slate-500 text-center">Loading...</div>
             ) : (
                 <div className="bg-slate-800 rounded-2xl overflow-hidden border border-slate-700 shadow-xl">
+                    {/* 3. Add Back Button */}
+                    <button
+                        onClick={() => navigate('/question')}
+                        className="mb-6 text-sm text-slate-400 hover:text-white flex items-center gap-2 transition-colors"
+                    >
+                        &larr; Back to Question
+                    </button>
+
+                    <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                        Top Players
+                    </h2>
+
                     <table className="w-full text-left">
                         <thead className="bg-slate-900/50 text-xs text-slate-400 uppercase font-semibold">
                         <tr>

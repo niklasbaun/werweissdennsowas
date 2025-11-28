@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { doc, onSnapshot, setDoc, updateDoc, increment, serverTimestamp, collection, query, where } from 'firebase/firestore';
 import { db, ARTIFACT_ID, auth } from '../hooks/firebaseConfig.js';
 
@@ -21,6 +22,7 @@ export default function QuestionsPage() {
     const [myAnswer, setMyAnswer] = useState(null);
     const [stats, setStats] = useState(null);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     // 1. Get Today's ID
     const todayID = new Date().toISOString().split('T')[0];
@@ -139,6 +141,14 @@ export default function QuestionsPage() {
     // VIEW: Voting (User has NOT voted)
     return (
         <div className="max-w-md mx-auto w-full p-6 fade-in">
+            <div className="flex justify-end mb-4">
+                <button
+                    onClick={() => navigate('/leaderboard')}
+                    className="text-xs font-bold text-slate-400 hover:text-white uppercase tracking-wider flex items-center gap-1 transition-colors"
+                >
+                    🏆 Leaderboard &rarr;
+                </button>
+            </div>
             <div className="mb-6">
                 <span className="text-xs font-bold text-blue-400 uppercase tracking-wider">Today's Question</span>
                 <h1 className="text-2xl font-bold text-white mt-2">{question.questionText}</h1>
