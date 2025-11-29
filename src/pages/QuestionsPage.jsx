@@ -30,25 +30,22 @@ export default function QuestionsPage() {
     useEffect(() => {
         if (!currentUser || !db) return;
 
-        // A. Fetch Question
         const qRef = doc(db, 'artifacts', ARTIFACT_ID, 'public', 'data', 'questions', todayID);
         const unsubQ = onSnapshot(qRef, (snap) => {
             if (snap.exists()) setQuestion(snap.data());
-            else setQuestion(null); // No question for today
+            else setQuestion(null);
             setLoading(false);
         });
 
-        // B. Check if I answered
         const aRef = doc(db, 'artifacts', ARTIFACT_ID, 'public', 'data', 'answers', `${todayID}_${currentUser.uid}`);
         const unsubA = onSnapshot(aRef, (snap) => {
             setMyAnswer(snap.exists() ? snap.data() : null);
         });
 
-        // C. Get Community Stats
         const answersRef = collection(db, 'artifacts', ARTIFACT_ID, 'public', 'data', 'answers');
         const qStats = query(answersRef, where('questionId', '==', todayID));
         const unsubS = onSnapshot(qStats, (snap) => {
-            const counts = { a: 0, b: 0, c: 0 };
+            const counts = { a: 0, b: 0, c: 0, d: 0 };
             snap.docs.forEach(d => {
                 const val = d.data().selectedOption;
                 if (counts[val] !== undefined) counts[val]++;
@@ -63,7 +60,6 @@ export default function QuestionsPage() {
         if (!question) return;
         const isCorrect = key === question.correctAnswer;
 
-        // 1. Save Answer
         await setDoc(doc(db, 'artifacts', ARTIFACT_ID, 'public', 'data', 'answers', `${todayID}_${currentUser.uid}`), {
             userId: currentUser.uid,
             questionId: todayID,
@@ -72,7 +68,6 @@ export default function QuestionsPage() {
             timestamp: serverTimestamp()
         });
 
-        // 2. Update Score (if correct)
         if (isCorrect) {
             await updateDoc(doc(db, 'artifacts', ARTIFACT_ID, 'public', 'data', 'users', currentUser.uid), {
                 score: increment(10)
@@ -80,97 +75,173 @@ export default function QuestionsPage() {
         }
     };
 
-    // --- Renders ---
+    if (loading) return <div className="text-white text-center mt-20">Loading...</div>;
 
-    if (loading) return <div className="text-white text-center mt-10">Loading...</div>;
+    // --- LAYOUT WRAPPER (Centers horizontally, pushes content up vertically) ---
+    const Layout = ({ children }) => (
+        <div className="min-h-screen flex flex-col items-center pt-12 px-4 fade-in pb-10 justify-start">
+            <div className="w-full max-w-lg">
+                {children}
+            </div>
+        </div>
+    );
+
 
     if (!question) return (
-        <div className="text-center text-slate-400 mt-10 p-6 bg-slate-800 rounded-xl">
-            <h2 className="text-xl font-bold text-white">Heute keine Frage</h2>
-            <p>Versuche es morgen nochmal!</p>
-            <button onClick={() => window.location.reload()} className="mt-4 text-sm text-blue-400 hover:underline">Neu laden</button>
-        </div>
+        <Layout>
+            <div className="text-center text-slate-400 p-8 bg-slate-800 rounded-2xl border border-slate-700 shadow-xl">
+                <h2 className="text-xl font-bold text-white mb-2">Heutige Frage fehlt</h2>
+                <p>Versuche es morgen nochmal!</p>
+                <button onClick={() => window.location.reload()} className="mt-6 px-4 py-2 bg-slate-700 rounded-lg text-sm text-blue-300 hover:text-white hover:bg-slate-600 transition-all">Neu laden</button>
+            </div>
+        </Layout>
     );
 
     // VIEW: Results (User has voted)
     if (myAnswer) {
         const { isCorrect } = myAnswer;
+
         return (
-            <div className="max-w-md mx-auto w-full p-6 fade-in">
-                <div className="flex justify-end mb-4">
-                    <button
-                        onClick={() => navigate('/leaderboard')}
-                        className="text-xs font-bold text-slate-400 hover:text-white uppercase tracking-wider flex items-center gap-1 transition-colors"
-                    >
-                        🏆 Leaderboard &rarr;
-                    </button>
-                </div>
-                {/* Header Result */}
-                <div className={`text-center p-6 rounded-2xl border mb-8 ${isCorrect ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-rose-500/10 border-rose-500/30'}`}>
-                    <h2 className={`text-2xl font-bold ${isCorrect ? 'text-emerald-400' : 'text-rose-400'}`}>
-                        {isCorrect ? "Correct!" : "Wrong Answer"}
+            <Layout>
+                {/* 1. Top Status Card */}
+                <div className={`text-center p-8 rounded-2xl border-2 mb-8 shadow-2xl transform transition-all ${
+                    isCorrect
+                        ? 'bg-gradient-to-br from-emerald-900/40 to-slate-900 border-emerald-500/50 shadow-emerald-900/20'
+                        : 'bg-gradient-to-br from-rose-900/40 to-slate-900 border-rose-500/50 shadow-rose-900/20'
+                }`}>
+                    <div className="text-5xl mb-4 animate-bounce">{isCorrect ? "🎉" : "❌"}</div>
+                    <h2 className={`text-3xl font-extrabold tracking-tight ${isCorrect ? 'text-emerald-400' : 'text-rose-400'}`}>
+                        {isCorrect ? "Richtig!" : "Falsch!"}
                     </h2>
-                    <p className="text-slate-300 mt-1">
-                        {isCorrect ? "+10 Points" : `The correct answer was ${question.options[question.correctAnswer]}`}
+                    <p className="text-slate-300 mt-2 font-medium text-lg">
+                        {isCorrect ? "+10 Punkte erhalten" : "Viel Glück beim nächsten Mal!"}
                     </p>
                 </div>
 
-                {/* Stats */}
+                {/* 2. List of Options with Stats */}
                 <div className="space-y-4">
-                    <h3 className="text-sm font-bold text-slate-500 uppercase">Abstimmungen</h3>
+                    <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4 ml-1">Community Abstimmung</h3>
+
                     {Object.entries(question.options).map(([key, text]) => {
                         const count = stats?.counts[key] || 0;
                         const percent = stats?.total ? Math.round((count / stats.total) * 100) : 0;
+
+                        // Logic
                         const isCorrectKey = key === question.correctAnswer;
+                        const isSelected = myAnswer.selectedOption === key;
+
+                        let cardStyle = "bg-slate-800 border-slate-700 text-slate-400 opacity-80"; // Default dimmed
+                        let barColor = "bg-slate-600";
+                        let ring = "";
+
+                        if (isCorrectKey) {
+                            cardStyle = "bg-emerald-900/20 border-emerald-500 text-emerald-100 opacity-100";
+                            barColor = "bg-emerald-500";
+                            ring = "ring-1 ring-emerald-500 shadow-lg shadow-emerald-900/20";
+                        } else if (isSelected && !isCorrectKey) {
+                            cardStyle = "bg-rose-900/20 border-rose-500 text-rose-100 opacity-100";
+                            barColor = "bg-rose-500";
+                            ring = "ring-1 ring-rose-500 shadow-lg shadow-rose-900/20";
+                        }
 
                         return (
-                            <div key={key} className="bg-slate-800/50 p-3 rounded-lg">
-                                <div className="flex justify-between text-sm text-slate-300 mb-1">
-                                    <span>{text}</span>
-                                    <span>{percent}%</span>
+                            <div key={key} className={`relative p-4 rounded-xl border transition-all duration-300 ${cardStyle} ${ring}`}>
+                                {/* Header: Answer Text + Percentage */}
+                                <div className="flex justify-between items-center gap-4 mb-3 relative z-10">
+                                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                                        {/* Badge */}
+                                        <span className={`flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg font-bold text-sm uppercase shadow-sm ${
+                                            isCorrectKey ? 'bg-emerald-500 text-black' :
+                                                (isSelected ? 'bg-rose-500 text-white' : 'bg-slate-700 text-slate-400')
+                                        }`}>
+                                        {key}
+                                    </span>
+                                        {/* Text with truncation protection */}
+                                        <span className={`font-medium text-lg leading-snug break-words ${isCorrectKey ? 'text-white' : ''}`}>{text}</span>
+                                    </div>
+                                    <span className="flex-shrink-0 font-mono font-bold text-lg">{percent}%</span>
                                 </div>
-                                <div className="h-2 bg-slate-700 rounded-full overflow-hidden">
+
+                                {/* Progress Bar */}
+                                <div className="h-2.5 w-full bg-slate-900/50 rounded-full overflow-hidden border border-white/5">
                                     <div
-                                        className={`h-full transition-all duration-1000 ${isCorrectKey ? 'bg-emerald-500' : 'bg-blue-500'}`}
+                                        className={`h-full transition-all duration-1000 ${barColor}`}
                                         style={{ width: `${percent}%` }}
                                     ></div>
                                 </div>
+
+                                {/* Status Labels */}
+                                {isCorrectKey && (
+                                    <div className="absolute -top-3 right-4 bg-emerald-600 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg border border-emerald-400 uppercase tracking-wide">
+                                        Antwort
+                                    </div>
+                                )}
+                                {isSelected && !isCorrectKey && (
+                                    <div className="absolute -top-3 right-4 bg-rose-600 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg border border-rose-400 uppercase tracking-wide">
+                                        Deine Wahl
+                                    </div>
+                                )}
                             </div>
                         )
                     })}
                 </div>
-                <div className="mt-6 p-4 bg-blue-900/20 rounded-xl border border-blue-500/20 text-sm text-blue-200">
-                    <strong>Erklärung:</strong> {question.explanation}
+
+                {/* 3. Explanation Box */}
+                <div className="mt-8 bg-blue-950/20 rounded-2xl border border-blue-500/20 overflow-hidden shadow-lg">
+                    <div className="bg-blue-900/20 px-6 py-3 border-b border-blue-500/10 flex items-center gap-2">
+                        <span className="text-xl">💡</span>
+                        <h3 className="text-blue-400 font-bold uppercase text-xs tracking-widest">Erklärung</h3>
+                    </div>
+                    <div className="p-6 text-blue-100/90 leading-relaxed text-sm md:text-base">
+                        {question.explanation}
+                    </div>
                 </div>
-            </div>
+
+                {/* 4. Navigation Buttons */}
+                <div className="mt-8 flex justify-center pb-10">
+                    <button
+                        onClick={() => navigate('/leaderboard')}
+                        className="group relative px-8 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-full font-bold transition-all border border-slate-600 hover:border-slate-500 hover:shadow-lg hover:-translate-y-0.5"
+                    >
+                    <span className="flex items-center gap-2">
+                        Leaderboard ansehen
+                        <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    </span>
+                    </button>
+                </div>
+            </Layout>
         );
     }
 
-    // VIEW: Voting (User has NOT voted)
+    // VIEW: Voting
     return (
-        <div className="max-w-md mx-auto w-full p-6 fade-in">
-
-            <div className="mb-6">
-                <span className="text-xs font-bold text-blue-400 uppercase tracking-wider">Heutige Frage</span>
-                <h1 className="text-2xl font-bold text-white mt-2">{question.questionText}</h1>
+        <Layout>
+            <div className="mb-8 text-center md:text-left">
+                <span className="inline-block px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-bold text-blue-400 uppercase tracking-wider mb-3">
+                    Frage des Tages
+                </span>
+                <h1 className="text-2xl md:text-3xl font-bold text-white leading-tight">{question.questionText}</h1>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-4">
                 {Object.entries(question.options).map(([key, text]) => (
                     <button
                         key={key}
                         onClick={() => handleVote(key)}
-                        className="w-full text-left p-4 rounded-xl bg-slate-800 border border-slate-700 hover:bg-slate-700 hover:border-blue-500 transition-all group"
+                        className="w-full text-left p-5 mb-4 rounded-xl bg-slate-800 border border-slate-700 hover:bg-slate-750 hover:border-blue-500/50 hover:shadow-blue-900/20 hover:shadow-lg hover:-translate-y-0.5 transition-all group relative overflow-hidden"
                     >
-                        <div className="flex items-center gap-3">
-                            <span className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-900 text-slate-400 font-bold group-hover:text-blue-400 border border-slate-700 group-hover:border-blue-500/50 uppercase">
+
+                    <div className="absolute inset-0 bg-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                        <div className="flex items-center gap-4 relative z-10">
+                            <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-lg bg-slate-900 text-slate-400 font-bold group-hover:text-blue-400 group-hover:bg-slate-800 border border-slate-700 group-hover:border-blue-500/30 uppercase transition-colors">
                                 {key}
                             </span>
-                            <span className="text-slate-200 font-medium text-lg">{text}</span>
+                            <span className="text-slate-200 font-medium text-lg leading-snug">{text}</span>
                         </div>
                     </button>
                 ))}
             </div>
-        </div>
+        </Layout>
     );
 }
