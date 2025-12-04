@@ -49,61 +49,63 @@ const SignupPage = () => {
     }
 
     return (
-        <div className="w-full max-w-sm bg-slate-800 p-8 rounded-2xl border border-slate-700 shadow-2xl">
-            <h2 className="text-2xl font-bold text-white mb-6 text-center">Account erstellen</h2>
+        <div className="min-h-screen w-full flex items-center justify-center p-4 bg-slate-950">
+            <div className="w-full max-w-sm bg-slate-800 p-8 rounded-2xl border border-slate-700 shadow-2xl">
+                <h2 className="text-2xl font-bold text-white mb-6 text-center">Account erstellen</h2>
 
-            {/* 1. Move onSignup to onSubmit here */}
-            <form className="space-y-4" onSubmit={onSignup}>
-                <div>
-                    <label className="block text-slate-400 text-sm mb-1">Anzeige Name</label>
-                    <input
-                        type="text"
-                        className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-blue-500 focus:outline-none"
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                </div>
+                {/* 1. Move onSignup to onSubmit here */}
+                <form className="space-y-4" onSubmit={onSignup}>
+                    <div>
+                        <label className="block text-slate-400 text-sm mb-1">Anzeige Name</label>
+                        <input
+                            type="text"
+                            className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-blue-500 focus:outline-none"
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                    </div>
 
-                <div>
-                    <label className="block text-slate-400 text-sm mb-1">Email address</label>
-                    <input
-                        type="email"
-                        required
-                        className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-blue-500 focus:outline-none"
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </div>
+                    <div>
+                        <label className="block text-slate-400 text-sm mb-1">Email address</label>
+                        <input
+                            type="email"
+                            required
+                            className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-blue-500 focus:outline-none"
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
 
-                <div>
-                    <label className="block text-slate-400 text-sm mb-1">Passwort</label>
-                    <input
-                        type="password"
-                        required
-                        className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-blue-500 focus:outline-none"
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
+                    <div>
+                        <label className="block text-slate-400 text-sm mb-1">Passwort</label>
+                        <input
+                            type="password"
+                            required
+                            className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-blue-500 focus:outline-none"
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
 
-                {error && <p className="text-red-400 text-xs">{error}</p>}
+                    {error && <p className="text-red-400 text-xs">{error}</p>}
 
-                {/* 2. Change type to submit and remove onClick */}
-                <button
-                    type="submit"
-                    className="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-2 rounded-lg transition-all active:scale-95"
-                >
-                    Sign Up
-                </button>
-            </form>
+                    {/* 2. Change type to submit and remove onClick */}
+                    <button
+                        type="submit"
+                        className="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-2 rounded-lg transition-all active:scale-95"
+                    >
+                        Sign Up
+                    </button>
+                </form>
 
-            <p className="text-sm text-slate-400 text-center mt-6">
-                Du hast schon einen Account? {' '}
-                <button
-                    type="button"
-                    onClick={() => navigate('/')}
-                    className="text-blue-400 hover:text-blue-300 font-semibold hover:underline"
-                >
-                    Login
-                </button>
-            </p>
+                <p className="text-sm text-slate-400 text-center mt-6">
+                    Du hast schon einen Account? {' '}
+                    <button
+                        type="button"
+                        onClick={() => navigate('/')}
+                        className="text-blue-400 hover:text-blue-300 font-semibold hover:underline"
+                    >
+                        Login
+                    </button>
+                </p>
+            </div>
         </div>
     );
 }

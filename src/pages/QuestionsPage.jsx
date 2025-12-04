@@ -79,7 +79,7 @@ export default function QuestionsPage() {
 
     // --- LAYOUT WRAPPER (Centers horizontally, pushes content up vertically) ---
     const Layout = ({ children }) => (
-        <div className="min-h-screen flex flex-col items-center pt-12 px-4 fade-in pb-10 justify-start">
+        <div className="min-h-screen w-full flex items-center pt-12 px-4 fade-in pb-10 justify-center bg-slate-950">
             <div className="w-full max-w-lg">
                 {children}
             </div>

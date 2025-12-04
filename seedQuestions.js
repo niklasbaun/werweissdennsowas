@@ -17,414 +17,473 @@ const db = getFirestore();
 // Key = The Date (YYYY-MM-DD), Value = The Question Data
 const questionsToAdd = [
     {
-        id: "2026-02-02", // Make sure this matches today's date if you want to test now!
+        id: "2026-05-01", // Make sure this matches today's date if you want to test now!
         data: {
-            questionText: "Wer hat in seinem Berufsalltag mit den sogenannten  Flavours 'charmant' und 'seltsam' zu tun?",
+            questionText: "Welche Fahrzeugsinformation ist Teil jedes britischen Kfz-Kennzeichens?",
             options: {
-                a: "britische Bäcker bei der Zubereitung von Scones",
-                b: "Geologen bei der Bestimmung von Gesteinsformationen",
-                c: "Quantenphysiker bei der Untersuchung von Quarks",
-            },
-            correctAnswer: "c",
-            explanation: "Quantenphysiker bei der Untersuchung von Quarks Hadronen, also Atomteilchen, " +
-                "zu denen Protonen und Neutronen gehören, werden von sogenannten Quarks gebildet. " +
-                "Unter anderem anhand ihrer Masse und Ladung werden sie in sechs verschiedene „Flavours“ beziehungsweise Geschmacksrichtungen eingeteilt: " +
-                "aufwärts, abwärts, charmant, seltsam, oben und unten. Der Name „Charm“ wurde metaphorisch verwendet, " +
-                "um die „charismatische“ Natur dieses Quarks zu beschreiben. Charm-Quarks haben eine besonders starke Wechselwirkung mit anderen Quarks. " +
-                "Ein „seltsames“ Quark bezieht sich auf ungewöhnliche Quarkzustände, etwa wenn sie sich nicht wie üblich in Zweier- oder Dreiergruppen, " +
-                "sondern in Vierer- oder Fünfer-Gruppen zusammensetzen."
-        }
-    },
-    {
-        id: "2026-02-03",
-        data: {
-            questionText: "Fühlen sich Libellen-Weibchen während der Paarungszeit von männlichen Artgenossen verfolgt, ...?",
-            options: {
-                a: "können sie für wenige Sekunden eine Art Turbo-Motor dazuschalten.",
-                b: "stellen sie sich tot.",
-                c: "stoßen sie männliche Duftstoffe aus",
+                a: "Art des Kraftstoffs",
+                b: "Zeitraum der Erstzulassung",
+                c: "Geburtsort des Fahrzeughalters",
             },
             correctAnswer: "b",
-            explanation: "Die Paarung von Libellen ist anstrengend und birgt für die Weibchen ein hohes Risiko, verletzt zu werden. " +
-                "Während des Aktes verhakt sich das Männchen nämlich fest in Kopfnähe des Weibchens, während es versucht, " +
-                "die Eier eines anderen Männchens zu entfernen. Um ihr eigenes Überleben zu sichern, haben die Weibchen eine 2017 beobachtete Strategie entwickelt: " +
-                "Sie stellen sich tot und fliegen erst weiter, wenn die Gefahr vorbei und der männliche Artgenosse verschwunden ist."
+            explanation: "Das derzeitige Format britischer Kfz-Kennzeichen besteht seit September 2001. Dabei geben die ersten " +
+                "beiden Buchstaben das Erstzulassungsgebiet des Wagens an. Die hinteren drei Buchstaben dienen der Unterscheidung " +
+                "und werden fortlaufend vergeben. Die mittleren Ziffern stellen einen Code dar, der für einen halbjährigen Zeitraum " +
+                "der Erstzulassung steht. Die Zeiträume September bis Februar sowie März bis August werden fortlaufend einem " +
+                "Code zugeordnet und können anhand einer Tabelle abgelesen werden."
         }
     },
     {
-        id: "2026-02-04",
+        id: "2026-05-02",
         data: {
-            questionText: "Misophoniker ...?",
+            questionText: "Als Forscher mehrere Haarlocken Ludwig van Beethovens im März 2023 untersuchten, fanden sie heraus, dass ...?",
             options: {
-                a: "haben keinerlei Rythmusgefühl beim Tanzen.",
-                b: "können Alltagsgeräusche wie kauen nicht ertragen.",
-                c: "bringen beim Sprechen regelmäßig Buchstaben durcheinander.",
-            },
-            correctAnswer: "b",
-            explanation: "Bei einer Misophonie handelt es sich um eine Störung der emotionalen Kontrollmechanismen im Gehirn, " +
-                "die Auswirkungen auf die Herzfrequenz oder Schweißproduktion haben. Betroffene Menschen erleben eine verminderte Toleranz " +
-                "in Zusammenhang mit einer selektiven Wahrnehmung von Geräuschen. Dadurch sind verschiedene Alltagsgeräusche wie zum Beispiel Kauen, " +
-                "Räuspern, Atmen oder Niesen für Menschen mit Misophonie unerträglich. Sie verspüren Aggressionen und Ekel und im schlimmsten Fall droht sogar ein Wutausbruch."
-        }
-    },
-    {
-        id: "2026-02-05",
-        data: {
-            questionText: "Was sorgt beim Einlegen von Salzgurken für weicheres Fruchtfleisch?",
-            options: {
-                a: "Gläser direkt verschließen und über Kopf lagern.",
-                b: "Gurken nur zur Hälfte mit Flüssigkeit bedecken.",
-                c: "kleine Stücke Roggenbrot aus Sauerteig in die Salzlake geben.",
+                a: "eine genetische verbindung zu Vincent van Gogh besteht",
+                b: "er keinen vollständigen Hörverlust erlitten haben kann",
+                c: "er genetisch kein van Beethoven ist",
             },
             correctAnswer: "c",
-            explanation: "Um aus Einlegegurken haltbare Salzgurken zu machen, wird das Gemüse in einer Salzlake eingelegt. " +
-                "Dazu sollten kleine Stücke Roggenbrot aus Sauerteig hinzugegeben werden. Die darin enthaltenen Milchsäurebakterien stoßen einen Fermentationsprozess an, " +
-                "der für einen säuerlicheren Geschmack und weicheres Fruchtfleisch sorgt. Das Gefäß sollte die ersten Tage nur mit einem Tuch abgedeckt werden, " +
-                "damit entstehende Gase entweichen können. Nach circa einer Woche kann das Gefäß luftdicht verschlossen werden."
+            explanation: "Ein internationales Forschungsteam unter der Leitung der University of Cambridge entschlüsselte " +
+                "im März 2023 das Genom Ludwig van Beethovens. Dabei fanden sie mithilfe einer Genanalyse von fünf Haarlocken heraus, " +
+                "dass er biologisch offenbar nicht von der Familie van Beethoven abstammt. Das Erbgut passt nicht zu seinen bisher " +
+                "kolportierten Vorfahren aus dem belgischen Mechelen. In väterlicher Linie muss also mindestens ein Sohn " +
+                "außerehelich entstanden sein, wodurch es keine direkte Verwandtschaftslinie nach Belgien gibt."
         }
     },
     {
-        id: "2026-02-06",
+        id: "2026-05-04",
         data: {
-            questionText: "Zur Vorbereitung einer Mission der indischen Raumfahrtbehörde 1981 wurde der Satellit zunächst...?",
+            questionText: "'GAGA Hühnerhof AG' ...?",
             options: {
-                a: "in einer Kfz-WErkstatt für Busse und Lkw ausgebeult.",
-                b: "mithilfe eines Ochsenwagens auf ein Feld gezogen.",
-                c: "in einem Yoga-Zentrum im Himalaya geerdet.",
+                a: "simuliert die Existenz landwirtschaftlicher Betrieb auf dem Mars",
+                b: "ist im Matheunterricht eine Eselsbrücke zur Winkelbestimmung",
+                c: "war der Arbeitstitel der 'Schulmädchen-Report' Filmreihe",
             },
             correctAnswer: "b",
-            explanation: "Das „Ariane Passenger PayLoad Experiment“, kurz APPLE, war der erste experimentelle Kommunikationssatellit der indischen Raumfahrtbehörde ISRO. " +
-                "Bevor er 1981 mit der Ariane-1-Rakete erfolgreich in die Umlaufbahn geschossen werden konnte, wurden zahlreiche Tests durchgeführt. " +
-                "Für einen davon wurde ein nicht-magnetisches Umfeld benötigt, weswegen der Satellit kurzerhand auf einen hölzernen Ochsenwagen gespannt " +
-                "und in ein offenes Feld gezogen wurde, wo der Test erfolgreich durchgeführt werden konnte."
+            explanation: "Die „GAGA HühnerHof AG“ ist keine Arbeitsgemeinschaft auf einem Bauernhof. Vielmehr können " +
+                "Schülerinnen und Schüler diesem Begriff im Matheunterricht begegnen. Es handelt sich um eine Eselsbrücke für " +
+                "trigonometrische Formeln zur Winkelbestimmung in einem rechtwinkligen Dreieck. Bestandteile der Formeln sind die " +
+                "drei Seiten des Dreiecks Gegenkathete, Ankathete und Hypotenuse. Die Buchstaben „GAGA‘, die zwei Hs " +
+                "„HühnerHof“ und „AG“ werden in zwei Zeilen unterhalb der vier Funktionen geschrieben und die benötigte Formel kann abgelesen werden."
         }
     },
     {
-        id: "2026-02-07",
+        id: "2026-05-05",
         data: {
-            questionText: "Während seiner Zeit als US-Präsident hat Jimmy Carter sein Jackett einmal ...?",
+            questionText: "Die winzigen Flimmerhärchen der Steinkoralle ...?",
             options: {
-                a: "auf links getragen, um seine Unangepasstheit zu beweisen.",
-                b: "bei einem Treffen mit Helmut Schmidt als Picknickdecke benutzt.",
-                c: "versehentlich mit den Atomwaffencodes in die Reinigung gegeben.",
-            },
-            correctAnswer: "c",
-            explanation: "Der 39. Präsident der Vereinigten Staaten, Jimmy Carter, ist eben auch nur ein Mensch. " +
-                "Medienberichten zufolge soll er während seiner Amtszeit als Präsident einmal einen Anzug zur Reinigung gebracht haben, " +
-                "in dessen Jacketttasche noch der sogenannte Biscuit, eine Karte mit den Atomwaffencodes, steckte. " +
-                "Zu seinem Glück sind die Golden Codes auf eine Plastikkarte aufgedruckt und daher wasserdicht - und ohne den dazugehörigen Atomkoffer ohnehin nutzlos."
-        }
-    },
-    {
-        id: "2026-02-09",
-        data: {
-            questionText: "Menschen mit natürlich roten Haaren ...?",
-            options: {
-                a: "machen etwa zwei Prozent der Bevölkerung in Deutschland aus.",
-                b: "sind weniger anfällig für Pollen-Allergien.",
-                c: "besitzen ein Extra-gen, das den roten Farbstoff Karmin erzeugt.",
+                a: "schützen die Korallen vor schädlichen Sauerstoffkonzentrationen",
+                b: "werden täglich neu gebildet, weil sie von Algen abgerieben werden",
+                c: "scheiden Kalk ab und bilden so Riffe",
             },
             correctAnswer: "a",
-            explanation: "Welche Haarfarbe ein Mensch hat, bestimmt das Pigment Melanin. Es kommt in zwei Varianten in unterschiedlicher Menge vor: " +
-                "Das Eumelanin färbt Haare dunkel bis schwarz, während das deutlich seltenere Phäomelanin für blonde oder rote Haare sorgt. " +
-                "Das Mischungsverhältnis der Pigmente bestimmt das MCIR-Gen. Ist dessen Funktion gestört, wird viel mehr Phäomelanin produziert, wodurch Haare rot werden. " +
-                "Weil das allerdings in Deutschland selten vorkommt, machen Menschen mit roten Haaren nur etwa zwei Prozent der Bevölkerung aus."
+            explanation: "Bei steigenden Wassertemperaturen stoßen Korallen die für ihre Färbung sorgenden symbiotischen " +
+                "Algen ab und bleichen aus. Denn die Algen bilden dann hohe, für die Nesseltiere schädliche Sauerstoffkonzentrationen." +
+                " Doch nicht alle Korallenarten sind davon gleich stark betroffen. Eine internationale Untersuchung der " +
+                "Steinkorallenart Porites lutea von 2022 ergab, dass sie durch das Schlagen ihrer Flimmerhärchen kleine Wirbel " +
+                "im Wasser erzeugt, die das sauerstoffreiche Wasser wegtransportieren. So können Steinkorallen die " +
+                "Sauerstoffbelastung in ihrer Umgebung etwa um die Hälfte reduzieren."
         }
     },
     {
-        id: "2026-02-10",
+        id: "2026-05-06",
         data: {
-            questionText: "Warum pfeift eine Flötenakazie im Wind?",
+            questionText: "Gut jedes zehnte Paar in Deutschland zwischen 18 und 69 Jahren ...?",
             options: {
-                a: "Ihre Dorenen haben Löcher, weil Ameisen darin wohnen.",
-                b: "Von der Rinde abstehende Holzfasern geraten in Schwingung.",
-                c: "Ihre Blätter rollen sich zu Röhren auf, wenn sie angefresen werden.",
+                a: "schläft in getrennten Zimmern",
+                b: "war vor der Beziehung bereits befreundet",
+                c: "hat sich über das Internet oder eine Dating-App kennengelernt",
             },
             correctAnswer: "a",
-            explanation: "Flötenakazien wachsen in den Savannen Ostafrikas. Ihr Name spielt auf einen Pfeifton an, den die Bäume im Wind erzeugen. " +
-                "Auslöser sind wulstige Hohlkörper an ihren Dornen, in denen oft kreisrunde Löcher zu finden sind. Diese zeugen von der Symbiose des Baumes mit einer Ameisenart, " +
-                "die sich  in den Dornen niedergelassen hat. Der Baum versorgt sie mit Nektar, während die Ameisen jeden Eindringling mit schmerzhaften Bissen vom Fressen der Blätter abhalten. " +
-                "Zieht Wind an den Hohlkörpern vorbei, beginnt die Flötenakazie zu pfeifen"
+            explanation: "Einer repräsentativen Online-Befragung in Deutschland von 2023 zufolge haben rund 24 Prozent und " +
+                "damit knapp ein Viertel der teilnehmenden Paare den Partner über das Internet oder eine Dating-App gefunden. " +
+                "Mit 22 Prozent war mehr als jedes fünfte Paar vor der Beziehung bereits befreundet. Laut einer Online-Studie " +
+                "im Auftrag einer Partnervermittlung von 2023 geht mit knapp elf Prozent gut jedes zehnte Paar nächtlichen " +
+                "Störfaktoren aus dem Weg und schläft in getrennten Zimmern. Bei Paaren unter 30 sind es fünf Prozent und " +
+                "bei Paaren über 50 Jahren 15 Prozent."
         }
     },
     {
-        id: "2026-02-11",
+        id: "2026-05-07",
         data: {
-            questionText: "Im Juni 2023 stahl ein Dieb in Kiel ein angeschlossenes Fahrrad, indem er ...?",
+            questionText: "Um unschöne Ränder und Ablagerungen aus Blumenvasen zu entferenen,eignen sich Wasser und ...?",
             options: {
-                a: "es mit einer Kette an seinem Motorboot befestigte und losfuhr",
-                b: "einen vier Meter hohen Baum fällte",
-                c: "den Fahrradständer mitsamt zwei Betonplatten davontrug",
+                a: "ein paar Tropfen Rum-Aroma",
+                b: "Eierschalen",
+                c: "Gelatine",
             },
             correctAnswer: "b",
-            explanation: "Auf besonders kreative Art und Weise wurde ein E-Bike im Kieler Stadtteil Schilksee gestohlen. Die 18-jährige Besitzerin hatte das Fahrrad am 28. Juni 2023 " +
-                "gegen 22 Uhr mit einem Faltschloss an einem Baum gesichert. Als sie nachts gegen 01:50 Uhr zurückkehrte, war der mehr als vier Meter hohe Baum " +
-                "in etwa 1,40 Meter Höhe abgesägt worden und das wertvolle Elektrofahrrad verschwunden."
+            explanation: "Stehen Schnittblumen einige Tage In der Vase, können sich unschöne Ränder und Ablagerungen bilden. " +
+                "Diese lassen sich mithilfe eines Hausmittels unkompliziert entfernen, Dafür wird die Vase zu etwa zwei Dritteln " +
+                "mit Wasser und zu etwa einem Drittel mit zerbrochenen Eierschalen befüllt und geschüttelt. Im Anschluss können " +
+                "die Eierschalen entsorgt und die Vase ausgespült werden. Die Ablagerungen haben sich gelöst und die Vase sicht " +
+                "wieder sauber aus."
         }
     },
     {
-        id: "2026-02-12",
+        id: "2026-05-08",
         data: {
-            questionText: "Wie lässt sich beim Backen das Aroma von abgeriebener Zitronen- oder Orangenschale intensievieren    ",
+            questionText: "WErden Seifenblasen mit reinem Sauerstoff gefüllt, so ...?",
             options: {
-                a: "Schale vor dem Verarbeiten einige Minuten in Apfelessig einlegen",
-                b: "Schale mit etwas Zucker zwischen den Fingern reiben",
-                c: "Zitrusfrucht vor dem Abreiben in der Mikrowelle erwärmen",
+                a: "steigen sie senkrecht nach oben wie Heliumballons",
+                b: "können sie von einem Magneten angezogen werden",
+                c: "sind sie 10-mal widerstandsfähiger als mit normaler Atemluft",
             },
             correctAnswer: "b",
-            explanation: "Damit das Aroma von Zitronen- oder Orangenabrieb noch intensiver wird, hilft es, die Schalen mit etwas Zucker zwischen den Fingern zu reiben. " +
-                "Die ätherischen Öle der Zitrusfrüchte werden durch die abrasive Textur des Zuckers extrahiert und es gelangt noch mehr Aroma in den Kuchen."
+            explanation: "Sauerstoff ist paramagnetisch, das bedeutet, dass er ohne äußeres Magnetfeld keine messbare " +
+                "magnetische Ordnung zeigt. Wird er jedoch einem äußeren Magnetfeld ausgesetzt, so wird er von diesem angezogen. " +
+                "Diese Eigenschaft kann mit Hilfe von Seifenblasen sichtbar gemacht werden: Werden diese mit reinem Sauerstoff " +
+                "gefüllt, so können die entstandenen Blasen mit einem starken Magneten angezogen werden."
         }
     },
     {
-        id: "2026-02-13",
+        id: "2026-05-09",
         data: {
-            questionText: "Trinkhalme aus Papier ...?",
+            questionText: "Ranzige Butter bei den Mahlzeiten der Harvard University führte 1766 zur ...?",
             options: {
-                a: "verbrauchen bei der Herstellung mehr Plastik als Pastiktrinkhalme",
-                b: "lösen sich in alkohlischen Getränken wesentlich schneller auf",
-                c: "können krebserregende Chlorpropanole enthalten",
-            },
-            correctAnswer: "c",
-            explanation: "Um den Plastikverbrauch zu reduzieren, wird häufig auf Trinkhalme aus Papier gesetzt. Laut Verbraucherzentrale Nordrhein-Westfalen ist dabei aber Vorsicht geboten: " +
-                "Damit das Papier bei Kontakt mit dem Getränk nicht sofort aufweicht, werden den Strohhalmen während der Produktion häufig Harze beigemischt. " +
-                "Dabei kann der Alkohol Chlorpropanol entstehen, der als krebserregend gilt. In knapp der Hälfte der Papiertrinkhalme sind Untersuchungen zufolge Chlorpropanole zu finden. " +
-                "Die Verbraucherzentrale rät daher, auf Trinkhalme besser zu verzichten."
-        }
-    },
-    {
-        id: "2026-02-14",
-        data: {
-            questionText: "Was ist das Besondere an Joseph Haydns 45. Sinfonie, auch bekannt als 'Abschiedssinfonie'?",
-            options: {
-                a: "Haydn komponierte sie während eines Vulkanausbruchs.",
-                b: "Im Schlusssatz verlasen die Musiker nach und nach die Bühne.",
-                c: "Hydn schrieb sie im Alter von 78 Jahren.",
-            },
-            correctAnswer: "b",
-            explanation: "Der Österreicher Joseph Haydn diente von 1761 bis 1803 im Eisenstädter Schloss im damaligen Ungarn dem Fürsten Esterhäzy als Hofkomponistund Kapellmeister." +
-                "Die Musiker des Hoforchesters verbrachten die Ssommermonate oft fernab ihrer Familien. In seiner „Abschiedssinfonie“ von 1772 wollte Haydn den Wunsch nach Heimkehr " +
-                "symbolisch ausdrücken, indem die Musiker im Schlusssatz nach und nach das Orchester verlassen ließ, bis nur noch zwei Violinen übrig waren. " +
-                "Nach der Uraufführung 1772 gewährte Fürst Esterházy, der die Symbolik sofort verstand, den Musikern die Möglichkeit, vorübergehend zu ihren Familien zurückzukehren."
-        }
-    },
-    {
-        id: "2026-02-16",
-        data: {
-            questionText: "Wieso taufte der britische Seeman John Meares eine Landzunge an der Westküste der USA 1788 'Cape Disappointment'?",
-            options: {
-                a: "Er konnte eine Flusseinfahrt nicht finden.",
-                b: "Dortiges Goldvorkommen war bei seiner Ankunft längst abgebaut.",
-                c: "Seine Gelibete lehnte dort mehrfach seinen Heiratsantrag ab.",
+                a: "ersten Studentenrevolte auf einem amerikanischen Campus",
+                b: "Gründung einer universitätseigenen Käserei, die bis heute besteht",
+                c: "Erfindung der Konservendose",
             },
             correctAnswer: "a",
-            explanation: "„Cape Disappointment“ in Washington ist eine Landzunge an der US-Westküste. Dort mündet der Columbia River in den Pazifischen Ozean. " +
-                "Den Namen erhielt das Kap vom britischen Pelzhändler John Meares. Auf der Suche nach Handelswegen von Kanada über den Pazifik segelte Meares 1788 zur besagten Bucht. " +
-                "Ein spanischer Offizier hatte ihm mitgeteilt, dass er dort über eine Flussmündung ins Landesinnere gelangen könne. Aufgrund eines Unwetters und hoher Wellen " +
-                "konnte Meares die Flusseinfahrt nicht finden und war sich sicher, der Offizier habe ihn reingelegt. Ergriffen von seinem Unmut taufte er das Kap " +
-                "'Cape Disappointment', also 'Kap der Enttäuschung'."
-
+            explanation: "Mit Beginn der amerikanischen Revolution 1763 nahm die Qualität von Lebensmitteln auf dem Campus der " +
+                "Harvard University rapide ab. Ein Abendessen mit ranziger Butter veranlasste schließlich im September 1766 " +
+                "den Studenten Asa Dunbar dazu, in der Mensa auf seinen Stuhl zu steigen und bessere Butter zu fordern. Schnell " +
+                "schlossen sich weitere Studenten dem Protest an. Die 'Butter Rebellion' hielt mehrere Wochen an und gipfelte " +
+                "in der Suspendierung von mehr als der Hälfte der Studentenschaft. Die erste Studentenrevolte auf einem " +
+                "amerikanischen Campus endete erst, als der Aufsichtsrat der Universität eingriff, die ranzige Butter ersetzte " +
+                "und die Suspendierungen aufhob."
         }
     },
     {
-        id: "2026-02-17",
+        id: "2026-05-11",
         data: {
-            questionText: "Papageien und Tintenfische ...?",
+            questionText: "Was testete die UNESCO-Welterberegion Hallstatt in Österreich 2023 an einem See, um Selfie-Fotografien zu reduzieren?",
             options: {
-                a: "gehen beide auf den Vorfahren 'Nectocaris pteryx' zurück",
-                b: "bestehen den auf Impulskontrolle ausgelegten Marshmallow-Test",
-                c: "erzeugen bei ihrer Fortbewegung ähnliche Wirbel in Luft und Wasser",
-            },
-            correctAnswer: "b",
-            explanation: "Trotz ihrer unterschiedlichen Lebensräume bestanden sowohl Tintenfische als auch Papageien bei zwei unterschiedlichen Studien von 2021 einen Test, " +
-                "der ihre Impulskontrolle untersuchte. Die Papageien mussten einem Sonnenblumenkern widerstehen und erhielten, wenn sie warten konnten, " +
-                "eine Walnuss. Bei den Tintenfischen wartete eine Garnele als Belohnung, wenn sie sich nicht sofort auf das dargebotene Futter stürzten. " +
-                "Beide Arten schlossen den auf sie angepassten „Marshmallow“-Test erfolgreich ab - ein Experiment, das in den 1970er-Jahren bekannt wurde " +
-                "und anhand eines Marshmallows die Impulskontrolle von Kindern untersuchte."
-
-        }
-    },
-    {
-        id: "2026-02-18",
-        data: {
-            questionText: "Im Jahr 2022 ließen finnische Forscher Studienteilnehmer eine 'Körperkarte' ausmalen, um ...?",
-            options: {
-                a: "die häufigsten Schmerzpunkte zu lokalisieren",
-                b: "zu visualisieren, wo Liebesgefühle wahrgenommen werden",
-                c: "die kitzligsten Körperstellen eines Menschen herauszufinden",
-            },
-            correctAnswer: "b",
-            explanation: "Forschende der finnischen Aalto-Universität ließen 2022 im Rahmen einer Studie " +
-                "sogenannte Körperkarten ausmalen. In den simplen Abbildungen des menschlichen Körpers sollten " +
-                "die Teilnehmenden markieren, wo sie Reaktionen auf bestimmte Emotionen empfinden. " +
-                "Dafür wurden ihnen verschiedene Formen der Liebe in Wortform und in zufälliger Reihenfolge vorgestellt. " +
-                "Die Ergebnisse zeigten, dass die Liebe zu Freunden und Familie vorwiegend im Kopf und Oberkörper wahrgenommen" +
-                " wird. Partnerschaftliche und leidenschaftliche Liebe wird im ganzen Körper empfunden. " +
-                "Die Forschenden weisen jedoch darauf hin, dass sich das körperliche Empfinden von Liebe individuell sehr unterscheiden kann."
-
-        }
-    },
-    {
-        id: "2026-02-19",
-        data: {
-            questionText: "Womit lassen sich eingebrannte textilreste auf einem Bügeleisen leicht entfernen?",
-            options: {
-                a: "geschroteter Reis",
-                b: "beschichtetes Backpapier",
-                c: "Radiergummi",
+                a: "Ansiedlung und Pflege von Stechmücken am Seeufer",
+                b: "kostenlose Selfie-Fotobox mit dem See als Hintergrundmotiv",
+                c: "Sichtschutzzaun am belibtesten Aussichtspunkt",
             },
             correctAnswer: "c",
-            explanation: "Wurde ein Kleidungsstück zu heiß gebügelt und Textilreste haben sich auf der Sohle " +
-                "des Bügeleisens eingebrannt, hilft ein heller einfarbiger Radiergummi. Wichtig ist, " +
-                "das Bügeleisen erst abkühlen zu lassen. Dank der Adhäsionskraft können die Rückstände mit dem Radiergummi " +
-                "abgerubbelt werden. Anschließend noch mit einem Tuch nachpolieren und das Gerät ist wieder einsatzbereit."
-
+            explanation: "ie malerische Kulisse der UNESCO-Welterberegion Hallstatt zieht jährlich etwa eine Million Besuchende und damit " +
+                "ähnlich viele Selfie-Fotografierende an. Um auf den Andrang am beliebtesten Aussichtspunkt zu reagieren und ihn zu " +
+                "reduzieren, testete die Gemeinde am Ufer des Hallstätter Sees einen kurzen Holzzaun als Sichtschutz. Auf ganzer Uferlänge " +
+                "aufgebaut, planten die Zuständigen, jede zweite Latte aus dem Zaun zu entfernen. Touristen hätten durch die schmale Lücke " +
+                "ein Bild vom See, davor aber kein ordentliches Selfie von sich schießen können. Auf Protest der Anwohnenden hin wurde " +
+                "der Zaun aber nach kurzer Zeit wieder abgebaut."
         }
     },
     {
-        id: "2026-02-20",
+        id: "2026-05-12",
         data: {
-            questionText: "Um etwas zwei Prozent des Gesamtbedarfs in Deutschland zu decken, wurden 2022 hierzulande rund 1,7 Millionen ...?",
+            questionText: "Die Chilipflanze Tabasco wurde nach dem gleichnamigen mexikanischen Bundesstaat benannt und ...?",
             options: {
-                a: "Kilogramm Bienenhonig erzeugt",
-                b: "Kubikmeter Holz geschlagen",
-                c: "Tonnen Erdöl produziert",
+                a: "wird dort Gouverneuren zur Amtseinführung feierlich überreicht",
+                b: "wurde bis ins 20.Jh. zur Behandlung von Schürfwunden verwendet",
+                c: "heißt übersetzt 'Land in dem die Erde heiß und feucht ist'",
             },
             correctAnswer: "c",
-            explanation: "Im Jahr 2022 wurden 34,1 Millionen Kilogramm Honig in Deutschland erzeugt. " +
-                "Das entspricht knapp 45 Prozent des deutschen Jahres-Gesamtkonsums von 78,6 Millionen Kilo. " +
-                "Dies ist im Vergleich zur Förderung von Erdöl ein enorm hoher Anteil, denn mit 1,7 Millionen Tonnen wurden " +
-                "2022 nur zwei Prozent des Gesamtbedarfs Deutschlands auf deutschem Boden produziert. " +
-                "90 Prozent der deutschen Gesamtproduktion von Erdöl stammte dabei aus Schleswig-Holstein und Niedersachsen."
-
+            explanation: "Tabasco ist eine Chili-Sorte der Art Capsicum frutescens und ist durch die gleichnamige Soße weltberühmt. " +
+                "Tabasco ist aber auch der Narne eines Bundestaats in Mexiko, wo die Sorte bereits im 19. Jahrhundert gezüchtet " +
+                "wurde, und bedeutet übersetzt aus der Sprache der indigenen Bevölkerung so viel wie 'Land, in dem die Erde heiß " +
+                "und feucht ist'. Weil die Chilipflanze Tabasco genau diese Eigenschaften für ein gutes Wachstum braucht, erhielt " +
+                "sie diesen Namen."
         }
     },
     {
-        id: "2026-02-21",
+        id: "2026-05-13",
         data: {
-            questionText: "Als sich eine Frau im Jahr 2012 in Island an einer Vermisstensuche beteiligte, ...?",
+            questionText: "Wer sein Gedächtnis- und Konzentrationsleistung für den nächsten Tag steigern möchte, sollte beim nächtlichen Schlaf ...?",
             options: {
-                a: "erfuhr sie per Zufall, dass sie eine Zwillingsschwester hat",
-                b: "realisierte sie erst Stunden später, dass sie selbst gesucht wurde",
-                c: "entdeckte sie ein Bronze-Suspensorium aus Wikingerzeiten",
+                a: "auf der rechten Seite liegen",
+                b: "eine Schlafmaske benutzen",
+                c: "für eine hohe Luftfeuchtigkeit im Raum sorgen",
             },
             correctAnswer: "b",
-            explanation: "Im August 2012 alarmierte ein Busfahrer in Island die Polizei, weil eine Touristin, " +
-                "die mit einer Reisegruppe die Vulkanregion Eldgjä erkundete, nach einem Halt nicht zum Bus zurückgekehrt war. " +
-                "Daraufhin wurde ein Suchtrupp aus rund 50 Personen organisiert. Daran beteiligte sich auch eine der " +
-                "übrigen Reisenden. Einige Stunden später realisierte die Frau, dass sie selbst die gesuchte Person war. " +
-                "Die Touristin hatte sich während des Stopps umgezogen, weshalb sie von den Mitreisenden " +
-                "nicht erkannt worden war. Zudem hatte sich der Fahrer Medienberichten zufolge offenbar verzählt."
-
+            explanation: "Störende Lichteinflüsse, wie zum Beispiel vorbeifahrende Autos oder Mondlicht, beeinflussen die Schlafqualität " +
+                "auch auf der Gedächtnis-Ebene. Das konnten Forschende aus Cardiff Anfang 2023 anhand der signifikante Auswirkungen " +
+                "durch das Benutzen von Schlafmasken nachweisen. Indem störendes Licht dauerhaft ausgeblendet wurde, verbesserte sich der " +
+                "Rhythmus und die Schlafstruktur der Probanden bereits nach einer Woche. Da sie mehr Zeit im Tiefschlaf verbrachten, " +
+                "fühlten sie sich tagsüber wacher, reagierten schneller und konnten eine bessere Gedächtnis- und " +
+                "Konzentrationsleistung abrufen."
         }
     },
     {
-        id: "2026-02-23",
+        id: "2026-05-14",
         data: {
-            questionText: "Bei einer 'Schnarchladung' ...?",
+            questionText: "Ein herkömmlicher Kleiderbügel mit Hosenhalter kann dabei helfen, ...?",
             options: {
-                a: "handelt es sich um eine Supermarktware mit wenig Nachfrage",
-                b: "wird das Kopfteil bei Matrazen stärker gefüttert",
-                c: "werden E-AUtos langsam und schonend geladen",
-            },
-            correctAnswer: "c",
-            explanation: "Der Akku eines Elektroautos ist fragil und wird durch häufige Schnellladevorgänge stark belastet, " +
-                "was seine Zellen intensiv beansprucht und die Lebensdauer der Batterie reduzieren kann. " +
-                "Das Laden des Elektroautos mit weniger Leistung dauert zwar einige Stunden länger, ist dafür aber schonender." +
-                " Diese langsamen Ladevorgänge werden in Fachkreisen auch 'Schnarchladung' genannt und garantieren eine " +
-                "längere Lebensdauer des Akkus."
-
-        }
-    },
-    {
-        id: "2026-02-24",
-        data: {
-            questionText: "Ist es grundsätzlich notwendig, Hunden für eine optimale Nährstoffversorgung regelmäßig wwechselnde Futtersorten anzubieten?",
-            options: {
-                a: "Ja, nur so entstehen kurzkettige Fettsäuren für eine gute Darmflora.",
-                b: "Nur, wenn es sich um Trockenfutter handelt.",
-                c: "Nein, dieselbe hochwertige Sorte kann über Jahre verfüttert werden.",
-            },
-            correctAnswer: "c",
-            explanation: "Obwohl Menschen und Hunde größtenteils die gleichen Geschmäcker wahrnehmen können, " +
-                "ist der Geschmackssinn von Hunden aufgrund der geringeren Anzahl von Geschmacksrezeptoren " +
-                "viel weniger ausgeprägt. Dadurch haben sie nicht das Bedürfnis, jeden Tag etwas anderes zu essen. " +
-                "Laut Experten ist Abwechslung zwar möglich, aber nicht notwendig. Handelt es sich um qualitativ " +
-                "hochwertiges Futter, das der Hund gut verträgt, ist die Verfütterung über einen längeren Zeitraum bedenkenlos."
-
-        }
-    },
-    {
-        id: "2026-02-25",
-        data: {
-            questionText: "Das Risiko einer Borrelienübertragung sinkt je schneller eine Zecke nach einem Stich entfernt wird, da die Bakterien ...?",
-            options: {
-                a: "nur Zellteilung betreiben, solange die Zecke am WWirt hängt",
-                b: "im Zeckendarm leben und erst beim Blutsaugen aktiviert werden",
-                c: "nur kurzzeitg von den menschlichen T-Zellen bekämpft werden",
+                a: "gekräuseltes Geschenkband wieder zu glätten",
+                b: "einen aufgeblasenen Luftballon zuzuknoten",
+                c: "verstreutes Konfetti schnell aufzusammeln",
             },
             correctAnswer: "b",
-            explanation: "Bei Spaziergängen durch Gebüsch und hohes Gras besteht das Risiko, von Zecken gestochen zu werden." +
-                " Dabei können sogenannte Borrelien, die Erreger der Borreliose, auf den Menschen übertragen werden. " +
-                "Je nach Region ist in Deutschland rund ein Drittel der Zecken von Borrelien befallen. " +
-                "Das Infektionsrisiko ist umso geringer, je schneller die Zecke gefunden und entfernt wird. " +
-                "Das liegt daran, dass die Borrelien-Bakterien im Darm der Zecke sitzen und erst durch das Saugen aktiviert " +
-                "werden. Circa 12 bis 24 Stunden nach dem Zeckenstich haben sie sich bis in den Speichel ausgebreitet " +
-                "und können auf den Menschen übertragen werden."
+            explanation: "Das Zuknoten eines aufgeblasenen Ballons ist für viele eine schier unmögliche Aufgabe. Helfen kann dabei ein " +
+                "herkömmlicher Kleiderbügel mit Hosenhalter. Einfach das Ballonventil über die obere und untere Stange des Bügels " +
+                "ziehen und den so größer werdenden Spalt nutzen, um den Knoten zu verschließen."
+        }
+    },
+    {
+        id: "2026-05-15",
+        data: {
+            questionText: "Nachdem die Studentin Jocelyn Bell Burnell 1967 den ersten rotierenden Neutronenstern entdeckt hatte, ...?",
+            options: {
+                a: "wurde der Missionsplan von Apollp 11 grundlegend geändert",
+                b: "erhielt ihr Doktorvater für ihre Leistung den Nobelpreis",
+                c: "gelang es ihr, erstmal einen Laserstrahl zu erzeugen",
+            },
+            correctAnswer: "b",
+            explanation: "„Die Britin Jocelyn Bell Burnell zog 1965 nach Cambridge, um dort am Institut für Radioastronomie zu " +
+                "promovieren. 1967 begann sie, Daten aus dem All mit einem von ihr aufgebauten Radioteleskop zu sammeln. Dabei " +
+                "registrierte sie ein Objekt, das alle 1,3 Sekunden einen Impuls abgab und sich später als der erste entdeckte " +
+                "rotierende Neutronenstern, auch Pulsar genannt, entpuppte. Die Entdeckung führte 1974 zur Verleihung des Nobelpreises " +
+                "für Physik, den allerdings ihr Doktorvater Antony Hewish 'für seine entscheidende Rolle bei der Entdeckung der " +
+                "Pulsare' erhielt und die später sehr erfolgreiche Bell Burnell in keiner Form würdigte."
 
         }
     },
     {
-        id: "2026-02-26",
+        id: "2026-05-16",
         data: {
-            questionText: "Wer einen PKW selbst polieren möchts, sollte ...?",
+            questionText: "Warum wurde am Set des Films 'GoodFellas' nach dem Dreh bestimmter Szenen 'keine Bewegung!' gerufen?",
             options: {
-                a: "in einem rechteckigen Raster arbeiten, nicht kreisförmig",
-                b: "die Politur auf den Lack auftragen, nicht auf die Polierscheibe",
-                c: "die zu polierende Stelle vorher nicht waschen, sondern nur abstauben",
+                a: "Ray Liotta und Joe Pesci trugen Goldketten, die Al Capone gehörten",
+                b: "Die Kamera sollte die erschrockenen Gesichter des Casts einfangen",
+                c: "Robert de Niro nutzte private Geldscheine des Requisiteurs",
+            },
+            correctAnswer: "c",
+            explanation: "Das Drama „GoodFellas — Drei Jahrzehnte in der Mafia“ des Regisseurs Martin Scorsese erschien im Jahr 1990." +
+                " Gedreht wurde es im Jahr zuvor unter anderem im New Yorker Stadtteil Queens sowie auf Long Island. Nach dem " +
+                "Dreh bestimmter Szenen musste der Requisiteur Robert Griffon 'Keine Bewegung!' rufen. Dies war nötig, damit er " +
+                "die Geldscheine, die Schauspieler Robert De Niro im Film verteilt, einsammeln konnte. Das Geld stammte " +
+                "nämlich vom Konto des Requisiteurs. De Niro hatte darauf bestanden, mit echtem Geld zu drehen, da er kein Fan " +
+                "von Falschgeld war und wollte, dass es sich echt anfühlte."
+
+        }
+    },
+    {
+        id: "2026-05-18",
+        data: {
+            questionText: "Clive Campbell legte 1973 mit einem Freund auf einer Party den Grundstein für eine neue Musikrichtung, indem sie ...?",
+            options: {
+                a: "die Musik langsamer abspielten und die Bässe erhöhten",
+                b: "ohne Musikkenntnisse mit Saxofon und Gitarre improvisierten",
+                c: "rythmisch auf instrumentale Liedpassage sprachen",
+            },
+            correctAnswer: "c",
+            explanation: "In den 1970er-Jahren veranstaltete Clive Campbell als 'Kool DJ Herc' regelmäßig Partys für seine Nachbarn " +
+                "in der New Yorker Bronx. Auf einer Party für seine Schwester am 11. August 1973 probierte er etwas Neues aus. Ihm " +
+                "war aufgefallen, dass in den instrumentalen Passagen der Lieder besonders leidenschaftlich getanzt wurde. Also nahm " +
+                "er sich zwei Plattenspieler und spielte nur diese sogenannten Breaks, während sein Freund 'Coke La Rock' dazu" +
+                " im Rhythmus ins Mikrofon sprach. Der neue Musikstil kam gut an und sprach sich schnell herum, weshalb " +
+                "die Party als Geburtsstunde des Hip-Hops gilt."
+
+        }
+    },
+    {
+        id: "2026-05-19",
+        data: {
+            questionText: "Bei den in Gruppen lebenden Zebramangusten zetteln die Weibchen häufig Kämpfe mit rivalisierenden Gruppen an, um ...?",
+            options: {
+                a: "während des Kampfes fremdgehen zu können",
+                b: "heimlich abzuhauen und sich eine neue Gruppe zu suchen",
+                c: "danach zu schlichten und Chefin beider Gruppen zu werden",
             },
             correctAnswer: "a",
-            explanation: "Für ein optimales Ergebnis sollte der Lack zunächst gesäubert und dann das Poliermittel " +
-                "direkt auf die Polierscheibe oder den Lappen aufgetragen werden. Entscheidend ist, " +
-                "niemals kreisförmig zu arbeiten, sondern immer in einem rechteckigen Raster im sogenannten Kreuzstich. " +
-                "So wird verhindert, dass sogenannte Hologrammmuster im Lack entstehen."
+            explanation: "Zebramangusten leben im südlichen Afrika in Gruppen von etwa 10 bis 30 Tieren. Treffen sie auf andere Mangusten, " +
+                "kommt es häufig zu Gruppenkämpfen um Nahrung und Lebensraum. Empfängnisbereite Weibchen werden daher von den Männchen " +
+                "streng bewacht. Weil die Tiere innerhalb einer Gruppe allerdings häufig nah verwandt sind, nähern sich die " +
+                "Weibchen oft absichtlich rivalisierenden Gruppen, um Kämpfe anzuzetteln. So gelingt es ihnen, sich unbemerkt mit " +
+                "genetisch weiter entfernten Männchen anderer Gemeinschaften fortzupflanzen und den Genpool zu erweitern. " +
+                "Danach kehren alle zu ihren ursprünglichen Gruppen zurück."
 
         }
     },
     {
-        id: "2026-02-27",
+        id: "2026-05-20",
         data: {
-            questionText: "Der weltweit einzigartige AUfzug des Neuen Rathauses in Hannover ...?",
+            questionText: "Der italienische Parmesankäse Parmigiano Reggionao ...?",
             options: {
-                a: "weird von den Fahrenden selbst per Pedalantrieb bewegt",
-                b: "wird wegen einer Fehlzeichnung seit 1913 von oben bestiegen",
-                c: "fährt mit einer Neigung von 17 Grad an der Kuppel entlang",
+                a: "wird im Konservierungsprozess mit einem dünnen Ölfilm bestrichen",
+                b: "stammt ursprünglich aus Korsika",
+                c: "wird immer mit tierischem Lab hergestellt",
             },
             correctAnswer: "c",
-            explanation: "Das Neue Rathaus in Hannover wurde 1913 eingeweiht und ist seit dem Sitz der Stadtverwaltung. " +
-                "Weltweit einzigartig ist der Aufzug, der Besucherinnen und Besucher zur Aussichtsplattform " +
-                "in etwa 100 Metern Höhe bringt. Die als Kuppelaufzug bekannte Aufzugsanlage fährt in " +
-                "einem Winkel von 17 Grad an der Kuppel entlang und folgt dabei deren Neigung. " +
-                "Der heutige Aufzug wurde 2008 in Betrieb genommen und löste die 1908 eingerichtete Originalanlage ab."
+            explanation: "Lab spielt bei der Käseherstellung eine entscheidende Rolle. Dabei handelt es sich um bestimmte Enzyme, " +
+                "die für die Gerinnung der Milch verantwortlich sind. Es wird zwischen mikrobiellem Lab und tierischem Lab " +
+                "unterschieden. Bei Ersterem werden die Enzyme mithilfe von Mikroorganismen wie Bakterien oder Pilzen hergestellt. " +
+                "Tierisches Lab wird meist aus den Mägen junger Kälber gewonnen. Viele Käsesorten werden heutzutage vegetarisch, " +
+                "also mit mikrobiellem Lab, produziert. Der italienische Parmesankäse Parmigiano Reggiano wird nach wie vor nach " +
+                "traditionellem Rezept und ausnahmslos mit tierischem Lab hergestellt."
+
         }
     },
     {
-        id: "2026-02-28",
+        id: "2026-05-21",
         data: {
-            questionText: "Was wird benötigt, um das Traditionsgebäck 'Meißner Fummel' selbst herzustellen...?",
+            questionText: "Wer beim Schnellladen von Lithium-Ionen-Batterien eine Ladepause von wenigen Minuten einlegt, ...?",
             options: {
-                a: "Küchengarn",
-                b: "Seidentuch",
-                c: "Strohalm",
+                a: "kann damit die Lebensdauer der Batterie auf bis zu 40 Jahre steigern",
+                b: "sollte das Gerät kurz aus- und wieder einschalten",
+                c: "kann die Ladekapazität beeintrachtigende Ablagerungen reduzieren",
             },
             correctAnswer: "c",
-            explanation: "Die „Meißner Fummel“ ist ein Gebäck mit geschützter Ursprungsbezeichnung aus der sächsischen Stadt Meißen" +
-                " und besteht größtenteils aus ... Luft. Der Ursprung soll auf das Jahr 1710 zurückgehen, " +
-                "als täglich ein Depeschenreiter des sächsischen Kurfürsten August des Starken zwischen Meißen und Dresden " +
-                "die Post beförderte. Verärgert, weil der Kurier unterwegs dem Meißner Wein zusprach, beauftragte der Kurfürst " +
-                "die Bäckerzunft in Meißen, ein zerbrechliches Backwerk herzustellen, das der Kurier nach seiner Rückkehr " +
-                "aus Meißen im Ganzen vorzuzeigen hatte. Um die dünnwandige Fummel, eine Art Teigtasche, selber herzustellen, " +
-                "bedarf es Fingerspitzengefühl und eines Strohhalms. Mit diesem wird das Hohlgebäck vor dem Backen aufgeblasen."
+            explanation: "Bei der Verwendung von Lithium-Ionen-Batterien, die zum Beispiel als Akkus in Smartphones oder E-Autos " +
+                "verbaut sind, ist es laut aktuellem Forschungsstand hilfreich, mitten im Schnellladevorgang eine Ladepause " +
+                "von drei bis vier Minuten einzulegen. Beim Laden kann es zu metallischen Lithiumablagerungen an der " +
+                "negativen Elektrode kommen, und zwar umso häufiger, je schneller die Batterie geladen wird. Dadurch stehen weniger " +
+                "Lithium-Ionen als Ladungsträger zur Verfügung, was die Ladekapazität beeinträchtigt. Die Ablagerungen lösen sich " +
+                "jedoch zum Großteil wieder auf, wenn das Schnellladen für ein paar Minuten unterbrochen wird."
+
+        }
+    },
+    {
+        id: "2026-05-22",
+        data: {
+            questionText: "In der Regel sind Beschäftigte auf Dienstreisen ...?",
+            options: {
+                a: "im hotelzimmer nicht gesetzlich unfallversichert",
+                b: "nicht berechtigt, sich abends privat zu verabreden",
+                c: "außerahlb der Dienstzeit verpflichtet, telefonisch erreichbar zu sein",
+            },
+            correctAnswer: "a",
+            explanation: "Nur bestimmte Wege und Tätigkeiten fallen unter die gesetzliche Unfallversicherung. Daher stehen " +
+                "Arbeitnehmer und Arbeitnehmerinnen während einer Dienstreise nicht pauschal unter Versicherungsschutz. " +
+                "Versichert sind sie auf dem Weg zur Unterkunft nur bis zur Türschwelle des Hotelzimmers oder der Wohnungstür " +
+                "der Dienstwohnung. Sobald das Zimmer betreten wird, befinden sich die Dienstreisenden außerhalb des " +
+                "Versicherungsschutzes. Gleiches gilt auch für private Freizeitgestaltung, wie zum Beispiel besuchte " +
+                "Kinovorstellungen oder Sightseeing während der Dienstreise."
+
+        }
+    },
+    {
+        id: "2026-05-23",
+        data: {
+            questionText: "Der Name der Modefarbe Taupe ...?",
+            options: {
+                a: "wwurde von Gianni Versace als ALias für Grau eingeführt",
+                b: "leitet sich von der Fellfarbe französischer Maulwurfe ab",
+                c: "bedeutete zu Luthers Zeiten Taube und Toupet",
+            },
+            correctAnswer: "b",
+            explanation: "Die Farbe Taupe ist ein dunkles Grau mit einem Stich ins Braune. Die Bezeichnung leitet sich vom " +
+                "französischen Wort „taupe“ ab, das wiederum von dem lateinischen „talpa“ abstammt. Beide Wörter bezeichnen den " +
+                "Maulwurf, da der Farbton ursprünglich der durchschnittlichen Farbe von französischen Maulwürfen entsprach. " +
+                "Im Laufe der Zeit wurde er um zusätzliche Schattierungen erweitert."
+
+        }
+    },
+    {
+        id: "2026-05-25",
+        data: {
+            questionText: "Die Geburt von Kunquian Catherine Zhu im Jahr 2000 führte vier Jahre später ...?",
+            options: {
+                a: "zu einer Verfassungsänderung der Republik Irland",
+                b: "zur Entwicklung eines Impfstoffs gegen Windpocken",
+                c: "zur Einführung eines neuen Zeichens auf der chinesischen Tastatur",
+            },
+            correctAnswer: "a",
+            explanation: "Kungian Catherine Zhu kam als zweites Kind chinesischer Eltern am 6. September 2000 in Nordirland zur Welt. " +
+                "Weil sie auf der irischen Insel geboren wurde, erhielt sie automatisch die irische Staatsbürgerschaft, nicht aber " +
+                "die britische. Nach der Geburt zog ihre Mutter mit ihr nach Wales und beantragte für beide unbefristete " +
+                "Aufenthaltstitel im Vereinigten Königreich. Da zu diesem Zeitpunkt zwar ihr Kind, aber nicht sie selbst berechtigt " +
+                "war, ging der Fall bis vor den Europäischen Gerichtshof. Dieser gab ihrem Antrag 2004 statt. Als Konsequenz wurde " +
+                "die Verfassung der Republik Irland dahingehend geändert, dass das Geburtsortprinzip für Neugeborene nur noch " +
+                "dann greift, wenn mindestens ein Elternteil die irische Staatsbürgerschaft besitzt oder darauf Anspruch hat."
+
+        }
+    },
+    {
+        id: "2026-05-26",
+        data: {
+            questionText: "Was sollte beim Beschneiden einer Magnolie beachtet werden?",
+            options: {
+                a: "Der Ast sollte nur angeschnitten werden, um ihn dann abzubrechen.",
+                b: "Nur Äste mit einer DIcke von mehr als 3 cm dürfen gekürzt werden.",
+                c: "Die Äste sollten schräg angesetzt geschnitten werden.",
+            },
+            correctAnswer: "c",
+            explanation: "Die Gattung der Magnolien gehört zur Familie der Magnoliengewächse mit rund 300 Arten, die hauptsächlich " +
+                "aus Ostasien sowie Nord- und Südamerika kommen. Die Gehölzpflanzen mit ihrer prachtvollen Blütenfülle sollten " +
+                "nur geschnitten werden, wenn sie zu groß für den Standort werden und auch dann nur alle drei bis fünf Jahre. " +
+                "Beim Schnitt, der unmittelbar nach der Blüte erfolgen sollte, muss auf ein scharfes Schnittwerkzeug sowie " +
+                "auf eine glatte und schräg angesetzte Schnittfläche geachtet werden, um Wasser auf der Schnittfläche zu vermeiden. " +
+                "So kann eine gute Wundheilung gewährleistet werden und die Pflanze verliert nicht ihre Blühkraft."
+
+        }
+    },
+    {
+        id: "2026-05-27",
+        data: {
+            questionText: "Forschende der Universität in Toronto fanden 2023 heraus, dass Menschen ihre Augen weniger bewegen, wenn sie ...?",
+            options: {
+                a: "beim Lesen den Finger nicht unter die LEsezeile halten",
+                b: "einer Tätigkeit nachgehen, die überweigend draußen stattfindet",
+                c: "sich beim Zuhören von geprochener Sprache anstrengen müssen",
+            },
+            correctAnswer: "c",
+            explanation: "Forschende der University of Toronto untersuchten 2023 junge Erwachsene und ließen sie Experimente mit " +
+                "unterschiedlich anstrengenden Höranforderungen durchlaufen. Dabei wurden die Pupillen und Augenbewegungen der " +
+                "Teilnehmer per Eye-Tracker aufgezeichnet. Die Forschenden stellten fest, dass sich die Augen weniger bewegen, " +
+                "je mehr sich die Probandinnen und Probanden beim Zuhören von gesprochener Sprache anstrengen müssen. Diese Methode " +
+                "könnte bei der Beurteilung helfen, wie sehr eine Person von der Verschreibung eines Hörgeräts oder Implantats " +
+                "profitiert."
+        }
+    },
+    {
+        id: "2026-05-28",
+        data: {
+            questionText: "Verkochter Reis, der nicht mehr zum Verzehr geeignet ist, lässt sich ...?",
+            options: {
+                a: "zum Ball geformt als Marderschutz in den Pkw-Moterraum legen",
+                b: "zu Brei gekocht als Kleber für Pappmaché verwenden",
+                c: "gekühlt zur Konservierung frischer Miesmuscheln nutzen",
+            },
+            correctAnswer: "b",
+            explanation: " Wenn Reis bei der Zubereitung verkocht und dadurch nicht mehr genießbar ist, kann er dennoch " +
+                "weiterverwendet werden. Hierzu wird er weitergekocht und bei Bedarf noch etwas Wasser hinzugegeben, bis eine " +
+                "breiige Konsistenz erreicht ist. Um die Haltbarkeit zu verlängern, kann dem Gemisch eine großzügige Menge Salz " +
+                "zugegeben werden, bevor es püriert und anschließend im Kühlschrank aufbewahrt wird. Nach dem Abkühlen kann der " +
+                "Brei durch die beim Kochen gelöste Stärke als Kleber verwendet werden und eignet sich zum Beispiel für " +
+                "verschiedene Basteleien aus Pappmache."
+
+        }
+    },
+    {
+        id: "2026-05-29",
+        data: {
+            questionText: "Beim 'Open Hiring'-Konzept in der Personalbeschaffung ...?",
+            options: {
+                a: "werden Lebensläufe vor der Auswahl anonymisiert",
+                b: "wird der schnellste Bewerber ohne Bewerbungsgespräch eingestellt",
+                c: "werden ausschließlcih Quereinsteiger ohne Erfahrung gesucht",
+            },
+            correctAnswer: "b",
+            explanation: "Das „Open Hiring“, auf Deutsch „Offene Einstellung“, wurde Anfang der 1980er-Jahre in einer Großbäckerei " +
+                "in Yonkers, New York, ins Leben gerufen und verbreitete sich weltweit. Dabei stehen nicht die Ausbildung und \
+                die Qualifikationen von Bewerbenden im Mittelpunkt, sondern ihre Motivation und ihr Potenzial. Wer sich auf eine \
+                Ausschreibung am schnellsten bewirbt, zuerst zu einem vereinbarten Termin erscheint oder auf der Warteliste oben \
+                steht, bekommt den Job. Langwierige Auswahlverfahren und Bewerbungsgespräche fallen weg, sodass Stellen \
+                unkompliziert und vorurteilsfrei besetzt werden."
+
+        }
+    },
+    {
+        id: "2026-03-30",
+        data: {
+            questionText: "Wer im 'Mad House' steckt, ...?",
+            options: {
+                a: "muss beim Dartsport das Doppel-1-Feld treffen",
+                b: "schlägt beim Golf vom Grün aus, kann das Loch aber nciht sehen",
+                c: "kann beim Billiard eine Kugel nur mit Berührung der schwarzen spielen",
+            },
+            correctAnswer: "a",
+            explanation: "Ziel beim Darts ist es, in so wenig Versuchen wie möglich 501 Punkte exakt auf Null zu bringen. " +
+                "Der letzte Pfeil muss dabei in einem Doppelfeld stecken. Hat ein Spieler 40 Punkte übrig, so muss er die Doppel-20 " +
+                "treffen. Erwischt er die einfache 20, hat er die Möglichkeit, das Spiel über die Doppel-10 zu beenden. Bei einem " +
+                "Restwert von 2 Punkten muss er das Doppel-1-Feld treffen. Erwischt er eine einfache 1 oder jedes andere Feld " +
+                "auf der Scheibe, zählt dies allerdings als „überworfen“ und der Wurf endet sofort. Gerade Amateurspieler " +
+                "verzweifeln häufig an diesem Feld, weshalb sie dabei im Dartsjargon im „Mad House“, also im „Irrenhaus“ stecken."
 
         }
     }
