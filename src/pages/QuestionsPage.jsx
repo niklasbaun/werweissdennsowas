@@ -24,8 +24,48 @@ export default function QuestionsPage() {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
+    const [timeLeft, setTimeLeft] = useState("");
+
     // 1. Get Today's ID
     const todayID = new Date().toISOString().split('T')[0];
+
+    // --- NEW: COUNTDOWN LOGIC (Midnight GMT) ---
+    useEffect(() => {
+        const calculateTimeLeft = () => {
+            const now = new Date();
+
+            // Create a Date object for the NEXT midnight UTC
+            const nextMidnight = new Date(now);
+            nextMidnight.setUTCHours(24, 0, 0, 0); // Sets time to 00:00:00.000 of the next day in UTC
+
+            const diff = nextMidnight - now;
+
+            if (diff <= 0) {
+                // Optional: Reload page when day changes to fetch new question immediately
+                window.location.reload();
+                return "00:00:00";
+            }
+
+            // Calculate hours, minutes, seconds
+            const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const m = Math.floor((diff / 1000 / 60) % 60);
+            const s = Math.floor((diff / 1000) % 60);
+
+            // Pad with zeros (e.g., "5" -> "05")
+            const pad = (n) => n.toString().padStart(2, '0');
+            return `${pad(h)}:${pad(m)}:${pad(s)}`;
+        };
+
+        // Update immediately
+        setTimeLeft(calculateTimeLeft());
+
+        // Update every second
+        const timer = setInterval(() => {
+            setTimeLeft(calculateTimeLeft());
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, []);
 
     useEffect(() => {
         if (!currentUser || !db) return;
@@ -55,7 +95,7 @@ export default function QuestionsPage() {
         });
 
         return () => { unsubQ(); unsubA(); unsubS(); };
-    }, [currentUser]);
+    }, [currentUser, todayID]);
 
     const handleVote = async (key) => {
         if (!question) return;
@@ -81,14 +121,39 @@ export default function QuestionsPage() {
     // --- LAYOUT WRAPPER ---
     const Layout = ({ children }) => (
         <div className="min-h-screen w-full flex flex-col items-center pt-8 px-4 fade-in pb-10 bg-slate-950">
-            <div className="w-full max-w-lg flex justify-end mb-6">
-                <button
-                    onClick={() => navigate('/leaderboard')}
-                    className="flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-white transition-colors bg-slate-900/50 hover:bg-slate-800 px-4 py-2 rounded-full border border-slate-700/50"
-                >
-                    <span>🏆</span> Leaderboard
-                </button>
+            {/* UPDATED HEADER: Flexbox with Space Between */}
+            <div className="w-full max-w-lg flex justify-between items-center mb-6">
+
+                {/* 1. Left Side: Countdown Timer */}
+                <div className="flex flex-col">
+                    <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Nächste Frage</span>
+                    <div className="text-xl font-mono text-blue-400 font-bold tabular-nums">
+                        {timeLeft}
+                    </div>
+                </div>
+
+                {/* 2. NEW: Right Side Button Group */}
+                <div className="flex items-center gap-3">
+                    {/* Settings Button (Circular) */}
+                    <button
+                        onClick={() => navigate('/settings')}
+                        className="flex items-center justify-center text-lg text-slate-400 hover:text-white transition-colors bg-slate-900/50 hover:bg-slate-800 w-10 h-10 rounded-full border border-slate-700/50 shadow-sm"
+                        title="Einstellungen"
+                    >
+                        ⚙️
+                    </button>
+
+                    {/* Existing Leaderboard Button */}
+                    <button
+                        onClick={() => navigate('/leaderboard')}
+                        className="flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-white transition-colors bg-slate-900/50 hover:bg-slate-800 px-4 h-10 rounded-full border border-slate-700/50 shadow-sm"
+                    >
+                        <span>🏆</span> <span className="hidden sm:inline">Leaderboard</span>
+                    </button>
+                </div>
+
             </div>
+
             <div className="w-full max-w-lg">
                 {children}
             </div>

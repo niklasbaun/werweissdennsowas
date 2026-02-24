@@ -36,44 +36,58 @@ export default function LeaderboardPage() {
     }, []);
 
     return (
-        <div className="min-h-screen w-full flex items-center justify-center p-2 bg-slate-950">
-            <div className="max-w-md mx-auto w-full p-4 fade-in">
-                <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                    Top Players
-                </h2>
+        <div className="min-h-screen w-full flex flex-col items-center pt-8 px-4 pb-10 bg-slate-950">
+            <div className="w-full max-w-lg fade-in">
 
+                {/* --- HEADER: Navigation & Settings --- */}
+                <div className="flex justify-between items-center mb-6 w-full">
+                    {/* Left: Back Button */}
+                    <button
+                        onClick={() => navigate('/question')}
+                        className="flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-white transition-colors bg-slate-900/50 hover:bg-slate-800 px-4 py-2 rounded-full border border-slate-700/50"
+                    >
+                        <span>⬅</span> Zurück
+                    </button>
+
+                    {/* Right: Settings Button */}
+                    <button
+                        onClick={() => navigate('/settings')}
+                        className="flex items-center justify-center text-lg text-slate-400 hover:text-white transition-colors bg-slate-900/50 hover:bg-slate-800 w-10 h-10 rounded-full border border-slate-700/50 shadow-sm"
+                        title="Einstellungen"
+                    >
+                        ⚙️
+                    </button>
+                </div>
+
+                {/* --- LEADERBOARD CONTENT --- */}
                 {loading ? (
-                    <div className="text-slate-500 text-center">Loading...</div>
+                    <div className="text-slate-500 text-center mt-20">Loading...</div>
                 ) : (
                     <div className="bg-slate-800 rounded-2xl overflow-hidden border border-slate-700 shadow-xl">
-                        {/* 3. Add Back Button */}
-                        <button
-                            onClick={() => navigate('/question')}
-                            className="mb-6 text-sm text-slate-400 hover:text-white flex items-center gap-2 transition-colors"
-                        >
-                            &larr; zurück zu den Fragen
-                        </button>
 
-                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                            Top Spieler
-                        </h2>
+                        {/* Cleaned up the title and added some padding */}
+                        <div className="p-6 border-b border-slate-700/50 bg-slate-800/50">
+                            <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                                🏆 Top Spieler
+                            </h2>
+                        </div>
 
                         <table className="w-full text-left">
-                            <thead className="bg-slate-900/50 text-xs text-slate-400 uppercase font-semibold">
+                            <thead className="bg-slate-900/80 text-xs text-slate-400 uppercase font-semibold">
                             <tr>
                                 <th className="px-6 py-4">Rang</th>
                                 <th className="px-6 py-4">Spieler</th>
                                 <th className="px-6 py-4 text-right">Score</th>
                             </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-700">
+                            <tbody className="divide-y divide-slate-700/50">
                             {users.map((user, index) => (
                                 <tr key={user.id} className="hover:bg-white/5 transition-colors">
-                                    <td className="px-6 py-4">
+                                    <td className="px-6 py-4 text-lg">
                                         {index === 0 && "🥇"}
                                         {index === 1 && "🥈"}
                                         {index === 2 && "🥉"}
-                                        {index > 2 && <span className="text-slate-500 font-mono">#{index + 1}</span>}
+                                        {index > 2 && <span className="text-slate-500 font-mono text-sm">#{index + 1}</span>}
                                     </td>
                                     <td className="px-6 py-4 font-medium text-white">
                                         {user.displayName || "Anonymous"}

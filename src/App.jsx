@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
 import QuestionsPage from "./pages/QuestionsPage.jsx";
 import LeaderboardPage from "./pages/LeaderboardPage.jsx";
+import SettingsPage from "./pages/SettingsPage.jsx";
 import { useEffect, useState } from "react";
 
 function useAuth() {
@@ -48,6 +49,12 @@ function App() {
                 <Route path="/leaderboard" element={
                     <ProtectedRoute>
                         <LeaderboardPage />
+                    </ProtectedRoute>
+                } />
+
+                <Route path="/settings" element={
+                    <ProtectedRoute>
+                        <SettingsPage />
                     </ProtectedRoute>
                 } />
             </Routes>
