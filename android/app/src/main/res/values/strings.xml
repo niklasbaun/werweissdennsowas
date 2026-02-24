@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">DailyQuilz</string>
+    <string name="title_activity_main">DailyQuilz</string>
+    <string name="package_name">com.niklasbaun.dailyquiz</string>
+    <string name="custom_url_scheme">com.niklasbaun.dailyquiz</string>
+</resources>

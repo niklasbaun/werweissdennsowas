@@ -1,0 +1,123 @@
+import React, { useState } from 'react';
+// 1. IMPORT sendPasswordResetEmail
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import { auth } from '../hooks/firebaseConfig.js';
+
+const LoginPage = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    // 2. ADD A SUCCESS MESSAGE STATE
+    const [message, setMessage] = useState('');
+    const navigate = useNavigate();
+
+    const onLogin = async (e) => {
+        e.preventDefault();
+        setError('');
+        setMessage('');
+        if (!auth) {
+            setError("Firebase not initialized");
+            return;
+        }
+
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            navigate('/question');
+        } catch (err) {
+            if (err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password') {
+                setError('Falsche Email oder falsches Passwort.');
+            } else {
+                setError(err.message);
+            }
+        }
+    }
+
+    // 3. ADD THE RESET PASSWORD HANDLER
+    const handleResetPassword = async (e) => {
+        e.preventDefault();
+        setError('');
+        setMessage('');
+
+        if (!email) {
+            setError('Bitte gib oben deine Email-Adresse ein, um das Passwort zurückzusetzen.');
+            return;
+        }
+
+        try {
+            await sendPasswordResetEmail(auth, email);
+            setMessage('Email zum Zurücksetzen gesendet! Überprüfe deinen Posteingang.');
+        } catch (err) {
+            if (err.code === 'auth/user-not-found') {
+                setError('Kein Account mit dieser Email gefunden.');
+            } else {
+                setError('Fehler beim Zurücksetzen: ' + err.message);
+            }
+        }
+    };
+
+    return (
+        <div className="min-h-screen w-full flex items-center justify-center p-4 bg-slate-950">
+            <div className="w-full max-w-sm bg-slate-800 p-8 rounded-2xl border border-slate-700 shadow-2xl">
+                <h2 className="text-2xl font-bold text-white mb-6 text-center">Wer weiß denn so was?</h2>
+
+                <form className="space-y-4">
+                    <div>
+                        <label className="block text-slate-400 text-sm mb-1">Email Adresse</label>
+                        <input
+                            type="email"
+                            required
+                            className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-blue-500 focus:outline-none"
+                            placeholder="name@example.com"
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
+
+                    <div>
+                        {/* 4. UPDATE LABEL AREA WITH FORGOT PASSWORD BUTTON */}
+                        <div className="flex justify-between items-center mb-1">
+                            <label className="block text-slate-400 text-sm">Passwort</label>
+                            <button
+                                type="button"
+                                onClick={handleResetPassword}
+                                className="text-xs text-blue-400 hover:text-blue-300 hover:underline focus:outline-none"
+                            >
+                                Passwort vergessen?
+                            </button>
+                        </div>
+                        <input
+                            type="password"
+                            required
+                            className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-blue-500 focus:outline-none"
+                            placeholder="••••••••"
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+
+                    {/* ALERTS */}
+                    {error && <p className="text-rose-400 text-xs font-medium bg-rose-900/20 p-2 rounded border border-rose-500/20">{error}</p>}
+                    {message && <p className="text-emerald-400 text-xs font-medium bg-emerald-900/20 p-2 rounded border border-emerald-500/20">{message}</p>}
+
+                    <button
+                        onClick={onLogin}
+                        className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 rounded-lg transition-all active:scale-95"
+                    >
+                        Login
+                    </button>
+                </form>
+
+                <p className="text-sm text-slate-400 text-center mt-6">
+                    Noch keinen Account? {' '}
+                    <button
+                        onClick={() => navigate('/signup')}
+                        className="text-blue-400 hover:text-blue-300 font-semibold hover:underline"
+                    >
+                        Sign up
+                    </button>
+                </p>
+            </div>
+        </div>
+    );
+}
+
+export default LoginPage;
